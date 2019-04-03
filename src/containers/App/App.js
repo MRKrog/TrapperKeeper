@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { saveNote, fetchNotes } from '../../actions/index';
 
 import { Header } from '../../components/Header/Header';
-import NotesContainer from '../NotesContainer/NotesContainer';
 
+import NotesContainer from '../NotesContainer/NotesContainer';
+import { Note } from '../Note/Note';
 import PropTypes from 'prop-types'
 
 import { fetchData } from '../../utility/fetchData';
@@ -38,25 +39,24 @@ export class App extends Component {
 
   }
 
-
   render() {
-
     return (
       <div className="App">
         <Header />
-
         <main className="Content-Container">
-          <Route exact path="/" render={() => {
+          <Route path="/" render={() => {
             return <NotesContainer />
           }} />
+          <Route path="/notes/:id" render={({match}) => {
+            const { id } = match.params;
+            return <Note noteId={id} />
+          }} />
+          <Route path="/new-note" component={Note} />
         </main>
-
-
       </div>
     );
   }
 }
-
 
 export const mapStateToProps = (state) => ({
   note: state.note,

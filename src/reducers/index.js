@@ -2,7 +2,10 @@ import { combineReducers } from 'redux';
 
 import { saveNoteReducer } from './saveNoteReducer';
 
+import { notesReducer } from './notesReducer';
+
 
 export const rootReducer = combineReducers({
-  notes: saveNoteReducer,
+  note: saveNoteReducer,
+  allNotes: notesReducer
 })

@@ -4,8 +4,8 @@ import { postData } from '../../utility/postData';
 
 
 export class Note extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
       type: ''
@@ -34,7 +34,7 @@ export class Note extends Component {
 
     return (
         <div className="Note">
-          <h4>Note</h4>
+          <h4>{this.props.title}</h4>
           <form onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.name} name="name" onChange={this.handleChange} />
             <input type="text" value={this.state.type} name="type" onChange={this.handleChange} />

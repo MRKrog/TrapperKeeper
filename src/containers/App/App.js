@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { saveNote, fetchNotes } from '../../actions/index';
 
 import { Header } from '../../components/Header/Header';
-import { NotesContainer } from '../NotesContainer/NotesContainer';
+import NotesContainer from '../NotesContainer/NotesContainer';
 
 import PropTypes from 'prop-types'
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { List } from '../List/List';
-
-import { fetchData } from '../../utility/fetchData';
+import { postData } from '../../utility/postData';
 
 
 export class Note extends Component {
@@ -17,26 +16,18 @@ export class Note extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value
-    })
+    });
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
-
-    // console.log(this.state);
-    const url = 'http://localhost:3001/api/v1/notes'
-    try {
-      const response = await fetchData(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(this.state)
-      })
-      console.log(response);
-      const data = await response.json()
-      console.log('data' , data);
-    } catch (error) {
-      console.log(error.message);
+    const url = 'http://localhost:3001/api/v1/notes';
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state)
     }
+    postData(url, options);
   }
 
   render() {

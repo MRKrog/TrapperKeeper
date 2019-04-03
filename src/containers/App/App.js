@@ -6,6 +6,7 @@ import { saveNote } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
 import { NotesContainer } from '../NotesContainer/NotesContainer';
 
+import PropTypes from 'prop-types'
 
 import { fetchData } from '../../utility/fetchData';
 
@@ -20,11 +21,22 @@ export class App extends Component {
 
 
   componentDidMount() {
-    // this.fetchCards()
+    // this.handleFetchStart()
   }
 
-  handleFetchStart = (url) => {
-    fetchData()
+  handleFetchStart = async () => {
+    const url = 'http://localhost:3001/api/v1/notes';
+
+    try {
+      const response = await fetchData(url)
+      console.log(response);
+      const data = response.json()
+      console.log(data);
+
+    } catch (error) {
+      console.log(error.message);
+    }
+
   }
 
 
@@ -55,5 +67,8 @@ export const mapDispatchToProps = (dispatch) => ({
   storeNote: (note) => dispatch(saveNote(note))
 })
 
+App.propTypes = {
+
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

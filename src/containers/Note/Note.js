@@ -7,8 +7,7 @@ export class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      type: ''
+      title: ''
     }
   }
 
@@ -31,13 +30,11 @@ export class Note extends Component {
   }
 
   render() {
-
     return (
         <div className="Note">
           <h4>{this.props.title}</h4>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.name} name="name" onChange={this.handleChange} />
-            <input type="text" value={this.state.type} name="type" onChange={this.handleChange} />
+            <input type="text" value={this.state.title} name="name" onChange={this.handleChange} />
             <button type="submit">Submit</button>
           </form>
           <List />

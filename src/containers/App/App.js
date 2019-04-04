@@ -30,7 +30,6 @@ export class App extends Component {
 
     try {
       const response = await fetchData(url)
-      console.log(response);
       this.props.fetchNotes(response);
 
     } catch (error) {

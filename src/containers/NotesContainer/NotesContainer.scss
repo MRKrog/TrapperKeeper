@@ -1,8 +1,17 @@
 .NotesContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1em;
-  background: #4c4c4c;
-  color: #fff;
+  a {
+    width: 300px;
+    height: 100px;
+    border-radius: 15px;
+    border: solid hsl(0, 0%, 88%) 1px;
+    background: white;
+    text-decoration: none;
+    padding: 10px;
+    display: flex;
+  }
+  h3 {
+    color: #e0e0e0;
+    margin: 0;
+  }
 }

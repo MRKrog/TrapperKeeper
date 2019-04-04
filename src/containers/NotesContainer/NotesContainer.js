@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Note } from '../Note/Note';
 import { Link } from 'react-router-dom';
-// import { fetchNotes } from '../../actions/index';
 import { connect } from 'react-redux';
 
 export class NotesContainer extends Component {
@@ -23,8 +21,6 @@ export class NotesContainer extends Component {
   render() {
     return (
       <div className="NotesContainer">
-        <h2>NotesContainer</h2>
-        <Link to="/new-note">New Note</Link>
         { this.props.allNotes && this.generateNotes() }
       </div>
     )

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotesContainer should match the snapshot 1`] = `
+<div
+  className="NotesContainer"
+>
+  <h2>
+    NotesContainer
+  </h2>
+  <Link
+    to="/new-note"
+  >
+    New Note
+  </Link>
+</div>
+`;
+
+exports[`NotesContainer should return JSX when generateNotes is called 1`] = `undefined`;

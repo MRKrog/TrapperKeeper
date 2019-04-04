@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { saveNote, fetchNotes, hasError } from '../../actions/index';
+import { hasError } from '../../actions/index';
 
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
@@ -115,6 +115,19 @@ export class Note extends Component {
      })
   }
 
+  deleteNote = async (e) => {
+    e.preventDefault();
+    const url = `http://localhost:3001/api/v1/notes/${this.props.noteId}`;
+    try {
+      const options = await fetchOptionsCreator('DELETE', {})
+      await fetchData(url, options)
+      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
+      this.setState({ toHomePage: true })
+    } catch (error) {
+      this.props.hasError(error.message)
+    }
+  }
+
   render() {
     if(this.state.toHomePage === true){
       return <Redirect to='/' />
@@ -166,6 +179,7 @@ export class Note extends Component {
                       type="submit">
                       Save Note
               </button>
+              <button onClick={this.deleteNote}>Delete Note</button>
               <h2>{this.props.error && this.props.error}</h2>
             </form>
           </div>

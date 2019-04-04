@@ -47,7 +47,8 @@ export class App extends Component {
           }} />
           <Route path="/notes/:id" render={({match}) => {
             const { id } = match.params;
-            return <Note noteId={id} />
+            const currentNote = this.props.allNotes.find(note => note.id == id)
+            return <Note noteId={id} {...currentNote}/>
           }} />
           <Route path="/new-note" component={Note} />
         </main>

@@ -2,12 +2,25 @@ import React, { Component } from 'react';
 import { List } from '../List/List';
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData'
+import shortid from 'shortid';
 
 export class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: ''
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.noteId) {
+      console.log('GET NOTE');
+      // this.findNote(this.props.noteId)
+    } else {
+      console.log('NEW NOTE');
+      this.setState({
+        id: shortid.generate()
+      })
     }
   }
 

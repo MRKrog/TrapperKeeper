@@ -1,3 +1,166 @@
 .Note {
-  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #e5e5e591;
+  position: fixed;
+  z-index: 4000;
+  transition: opacity 0.218s ease-in 0s;
+
+  &::before {
+    content: "";
+  }
+}
+
+.Note-Content {
+  position:fixed;
+  background: #ffff;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 5px;
+  height: auto;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-shadow: 0px 2px 10px 3px #0000006b;
+
+  .Note-Close {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    button {
+      outline: none;
+      cursor: pointer;
+      border: none;
+      background: #cccccccc;
+      color: #fff;
+      font-size: 1.25em;
+      border-top-right-radius: 5px;
+      transition: all .5s ease;
+
+      &:hover {
+        color: #a9a9a9;
+      }
+    }
+  }
+}
+
+.Note-Form-Container {
+  padding: 1em;
+
+  .Note-Form {
+    display: flex;
+    flex-direction: column;
+
+    .Note-Title {
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1rem;
+      padding-bottom: 5px;
+      padding-top: 7px;
+      outline: none;
+      border: none;
+    }
+
+    .ListItems {
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style-type: none;
+        border-top: #d2d2d2 solid 1px;
+        border-bottom: #d2d2d2 solid 1px;
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0;
+
+        label {
+          width: 4%;
+        }
+
+        input[type=text] {
+          outline: none;
+          border:none;
+          width: 80%;
+        }
+
+        button {
+          background: none;
+          outline: none;
+          width: 8%;
+          border: none;
+          cursor: pointer;
+        }
+
+      }
+
+
+        .container {
+          display: block;
+          position: relative;
+          cursor: pointer;
+          font-size: 22px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        .container input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        .checkmark {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 16px;
+          width: 20px;
+          background-color: #eee;
+        }
+
+        .container:hover input ~ .checkmark {
+          background-color: #ccc;
+        }
+
+        .container input:checked ~ .checkmark {
+          background-color: #2196F3;
+        }
+
+        .checkmark:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+
+        .container input:checked ~ .checkmark:after {
+          display: block;
+        }
+
+        .container .checkmark:after {
+          left: 8px;
+          top: 2px;
+          width: 3px;
+          height: 7px;
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+
+    }
+
+    .Note-Save {
+      margin-top: 2em;
+    }
+
+  }
 }

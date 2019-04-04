@@ -6,20 +6,13 @@ import { saveNote, fetchNotes, hasError } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
 
 import NotesContainer from '../NotesContainer/NotesContainer';
-import { Note } from '../Note/Note';
+import Note from '../Note/Note';
 import PropTypes from 'prop-types'
 
 import { fetchData } from '../../utility/fetchData';
 
 
 export class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      noteCards: [],
-    }
-  }
-
 
   componentDidMount() {
     this.handleFetchStart()
@@ -27,14 +20,12 @@ export class App extends Component {
 
   handleFetchStart = async () => {
     const url = 'http://localhost:3001/api/v1/notes';
-
     try {
       const response = await fetchData(url)
       this.props.fetchNotes(response);
     } catch (error) {
       this.props.hasError(error.message)
     }
-
   }
 
   render() {
@@ -47,7 +38,8 @@ export class App extends Component {
           }} />
           <Route path="/notes/:id" render={({match}) => {
             const { id } = match.params;
-            return <Note noteId={id} />
+            const currentNote = this.props.allNotes.find(note => note.id == id)
+            return <Note noteId={id} {...currentNote}/>
           }} />
           <Route path="/new-note" component={Note} />
         </main>

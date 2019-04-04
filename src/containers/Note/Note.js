@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List } from '../List/List';
-import { postData } from '../../utility/postData';
-
+import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
+import { fetchData } from '../../utility/fetchData'
 
 export class Note extends Component {
   constructor(props) {
@@ -21,12 +21,12 @@ export class Note extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const url = 'http://localhost:3001/api/v1/notes';
-    const options = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(this.state)
+    try {
+      const options = await fetchOptionsCreator('POST', this.state)
+      await fetchData(url, options)
+    } catch (error) {
+      this.props.hasError(error.message)
     }
-    postData(url, options);
   }
 
   render() {

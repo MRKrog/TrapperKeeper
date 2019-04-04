@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { saveNote, fetchNotes } from '../../actions/index';
+import { saveNote, fetchNotes, hasError } from '../../actions/index';
 
 import { Header } from '../../components/Header/Header';
 
@@ -31,9 +31,8 @@ export class App extends Component {
     try {
       const response = await fetchData(url)
       this.props.fetchNotes(response);
-
     } catch (error) {
-      console.log(error.message);
+      this.props.hasError(error.message)
     }
 
   }
@@ -59,12 +58,14 @@ export class App extends Component {
 
 export const mapStateToProps = (state) => ({
   note: state.note,
-  allNotes: state.allNotes
+  allNotes: state.allNotes,
+  error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
   storeNote: (note) => dispatch(saveNote(note)),
   fetchNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
+  hasError: (message) => dispatch(hasError(message))
 })
 
 App.propTypes = {

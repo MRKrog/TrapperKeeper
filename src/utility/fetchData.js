@@ -1,6 +1,8 @@
-export const fetchData = async (url) => {
-  const response = await fetch(url)
-  if(!response.ok) { throw new Error(`Bad Initial Fetch Request at ${url}`)}
-  const data = await response.json()
-  return data
+export const fetchData = async (url, body) => {
+  const response = await fetch(url, body)
+  if(!response.ok){
+    throw new Error(response.statusText)
+  } else {
+    return await response.json()
+  }
 }

@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { List } from '../List/List';
-import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
-import { fetchData } from '../../utility/fetchData'
+import { NavLink, Redirect } from 'react-router-dom';
 import shortid from 'shortid';
-import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { saveNote, fetchNotes, hasError } from '../../actions/index';
+
+import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
+import { fetchData } from '../../utility/fetchData';
+
+import { List } from '../List/List';
+
 
 export class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      list: []
+      list: [],
+      toHomePage: false,
     }
   }
 
@@ -53,6 +61,19 @@ export class Note extends Component {
     }
   }
 
+  handlePut = async (e) => {
+    e.preventDefault();
+    const { title, list } = this.state;
+    const url = `http://localhost:3001/api/v1/notes/${this.props.noteId}`;
+    try {
+      const options = await fetchOptionsCreator('PUT', { title, list })
+      await fetchData(url, options)
+      this.setState({ toHomePage: true })
+    } catch (error) {
+      this.props.hasError(error.message)
+    }
+  }
+
   handleTitleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -84,7 +105,9 @@ export class Note extends Component {
   }
 
   render() {
-
+    if(this.state.toHomePage === true){
+      return <Redirect to='/' />
+    }
 
     return (
       <div className="Note">
@@ -127,12 +150,34 @@ export class Note extends Component {
                 }
               </ul>
               <button onClick={(e) => this.addItem(e)}>Add List</button>
-              <button className="Note-Save" type="submit">Save Note</button>
+              <button onClick={this.handlePut}
+                      className="Note-Save"
+                      type="submit">
+                      Save Note
+              </button>
+              <h2>{this.props.error && this.props.error}</h2>
             </form>
           </div>
-
         </section>
       </div>
     )
   }
 }
+
+export const mapStateToProps = (state) => ({
+  note: state.note,
+  allNotes: state.allNotes,
+  error: state.error
+})
+
+export const mapDispatchToProps = (dispatch) => ({
+  storeNote: (note) => dispatch(saveNote(note)),
+  fetchNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
+  hasError: (message) => dispatch(hasError(message))
+})
+
+Note.propTypes = {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Note)

@@ -6,7 +6,7 @@ import { saveNote, fetchNotes, hasError } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
 
 import NotesContainer from '../NotesContainer/NotesContainer';
-import { Note } from '../Note/Note';
+import Note from '../Note/Note';
 import PropTypes from 'prop-types'
 
 import { fetchData } from '../../utility/fetchData';

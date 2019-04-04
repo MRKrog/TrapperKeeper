@@ -13,13 +13,6 @@ import { fetchData } from '../../utility/fetchData';
 
 
 export class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      noteCards: [],
-    }
-  }
-
 
   componentDidMount() {
     this.handleFetchStart()
@@ -27,14 +20,12 @@ export class App extends Component {
 
   handleFetchStart = async () => {
     const url = 'http://localhost:3001/api/v1/notes';
-
     try {
       const response = await fetchData(url)
       this.props.fetchNotes(response);
     } catch (error) {
       this.props.hasError(error.message)
     }
-
   }
 
   render() {

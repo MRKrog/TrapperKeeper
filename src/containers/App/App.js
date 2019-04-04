@@ -13,19 +13,19 @@ import { fetchData } from '../../utility/fetchData';
 
 export class App extends Component {
 
-  componentDidMount() {
-    this.handleFetchStart()
-  }
+  // componentDidMount() {
+  //   this.handleFetchStart()
+  // }
 
-  handleFetchStart = async () => {
-    const url = 'http://localhost:3001/api/v1/notes';
-    try {
-      const response = await fetchData(url)
-      this.props.fetchNotes(response);
-    } catch (error) {
-      this.props.hasError(error.message)
-    }
-  }
+  // handleFetchStart = async () => {
+  //   const url = 'http://localhost:3001/api/v1/notes';
+  //   try {
+  //     const response = await fetchData(url)
+  //     this.props.storeAllNotes(response);
+  //   } catch (error) {
+  //     this.props.showError(error.message)
+  //   }
+  // }
 
   render() {
     return (
@@ -38,9 +38,9 @@ export class App extends Component {
           <Route path="/notes/:id" render={({match}) => {
             const { id } = match.params;
             const currentNote = this.props.allNotes.find(note => note.id == id)
-            return <Note noteId={id} {...currentNote}/>
+            return <Note type="existing-note" noteId={id} {...currentNote}/>
           }} />
-          <Route path="/new-note" component={Note} />
+          <Route path="/new-note" render={ () => <Note type="new-note"/> } />
         </main>
       </div>
     );
@@ -54,16 +54,16 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   storeNote: (note) => dispatch(saveNote(note)),
-  fetchNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
-  hasError: (message) => dispatch(hasError(message))
+  storeAllNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
+  showError: (message) => dispatch(hasError(message))
 })
 
 App.propTypes = {
   allNotes: PropTypes.array.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   storeNote: PropTypes.func.isRequired,
-  fetchNotes: PropTypes.func.isRequired,
-  hasError: PropTypes.func.isRequired
+  fetchNotes: PropTypes.func,
+  showError: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

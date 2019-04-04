@@ -49,19 +49,29 @@ export class Note extends Component {
     }
   }
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  handleType = (e) => {
+    e.preventDefault()
+    const { type } = this.props
+    if(type === "new-note") {
+      this.handlePost()
+    } else if(type === "existing-note") {
+      this.handlePut()
+    }
+  }
+
+  handlePost = async () => {
+    const { title, list } = this.state;
     const url = 'http://localhost:3001/api/v1/notes';
     try {
-      const options = await fetchOptionsCreator('POST', this.state)
+      const options = await fetchOptionsCreator('POST', { title, list })
       await fetchData(url, options)
+      this.setState({ toHomePage: true })
     } catch (error) {
       this.props.hasError(error.message)
     }
   }
 
-  handlePut = async (e) => {
-    e.preventDefault();
+  handlePut = async () => {
     const { title, list } = this.state;
     const url = `http://localhost:3001/api/v1/notes/${this.props.noteId}`;
     try {
@@ -149,7 +159,7 @@ export class Note extends Component {
                 }
               </ul>
               <button onClick={(e) => this.addItem(e)}>Add List</button>
-              <button onClick={this.handlePut}
+              <button onClick={this.handleType}
                       className="Note-Save"
                       type="submit">
                       Save Note

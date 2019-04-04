@@ -23,8 +23,8 @@ export class Note extends Component {
     event.preventDefault();
     const url = 'http://localhost:3001/api/v1/notes';
     try {
-      const options = fetchOptionsCreator('POST', this.state)
-      const response = await fetchData(url, options)
+      const options = await fetchOptionsCreator('POST', this.state)
+      await fetchData(url, options)
     } catch (error) {
       this.props.hasError(error.message)
     }

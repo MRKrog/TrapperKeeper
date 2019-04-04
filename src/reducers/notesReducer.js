@@ -3,7 +3,7 @@ export const notesReducer = (state=[], action) => {
     case 'FETCH_NOTES' :
       return action.allNotes.map(note => ({
         id: note.id, 
-        title: note.name
+        title: note.title
       }));
 
     default :

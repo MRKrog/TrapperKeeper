@@ -8,6 +8,7 @@ import { saveNote, fetchNotes, hasError } from '../../actions/index';
 
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
+import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
 import { List } from '../List/List';
 
@@ -65,6 +66,7 @@ export class Note extends Component {
     try {
       const options = await fetchOptionsCreator('POST', { title, list })
       await fetchData(url, options)
+      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
       this.setState({ toHomePage: true })
     } catch (error) {
       this.props.hasError(error.message)
@@ -178,7 +180,8 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  hasError: (message) => dispatch(hasError(message))
+  hasError: (message) => dispatch(hasError(message)),
+  fetchAllNotes: (url) => dispatch(fetchAllNotes(url))
 })
 
 Note.propTypes = {

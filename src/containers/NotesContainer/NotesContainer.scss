@@ -1,13 +1,16 @@
 .NotesContainer {
   display: flex;
+  flex-wrap: wrap;
+
   a {
-    width: 300px;
-    height: 100px;
+    width: 23%;
+    min-height: 100px;
+    margin: 1%;
     border-radius: 15px;
     border: solid hsl(0, 0%, 88%) 1px;
     background: white;
     text-decoration: none;
-    padding: 10px;
+    padding: .5em;
     display: flex;
   }
   h3 {

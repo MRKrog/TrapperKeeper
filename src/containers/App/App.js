@@ -2,30 +2,20 @@ import React, { Component } from 'react';
 import { Route, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { saveNote, fetchNotes, hasError } from '../../actions/index';
-
 import { Header } from '../../components/Header/Header';
-
 import NotesContainer from '../NotesContainer/NotesContainer';
 import Note from '../Note/Note';
 import PropTypes from 'prop-types'
+import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
 import { fetchData } from '../../utility/fetchData';
 
 export class App extends Component {
 
-  // componentDidMount() {
-  //   this.handleFetchStart()
-  // }
-
-  // handleFetchStart = async () => {
-  //   const url = 'http://localhost:3001/api/v1/notes';
-  //   try {
-  //     const response = await fetchData(url)
-  //     this.props.storeAllNotes(response);
-  //   } catch (error) {
-  //     this.props.showError(error.message)
-  //   }
-  // }
+  componentDidMount() {
+    const url = 'http://localhost:3001/api/v1/notes'
+    this.props.fetchAllNotes(url)
+  }
 
   render() {
     return (
@@ -55,7 +45,8 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = (dispatch) => ({
   storeNote: (note) => dispatch(saveNote(note)),
   storeAllNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
-  showError: (message) => dispatch(hasError(message))
+  showError: (message) => dispatch(hasError(message)),
+  fetchAllNotes: (url) => dispatch(fetchAllNotes(url)),
 })
 
 App.propTypes = {

@@ -10,9 +10,9 @@ import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
-import { List } from '../List/List';
+import { ListItem } from '../ListItem/ListItem';
 
-export class Note extends Component {
+export class NoteForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -154,21 +154,7 @@ export class Note extends Component {
                 {
                   this.state.list.map((item, index) => {
                     return (
-                      <li key={index}>
-                        <label className="container">
-                          <input type="checkbox" />
-                          <span className="checkmark"></span>
-                        </label>
-                        <input type="text"
-                                placeholder="List Item"
-                                value={item.text}
-                                name="ListItem"
-                                onChange={(e) => this.handleItemChange(e, index)}
-                          />
-                          <button onClick={(e) => this.handleItemDelete(e, index)}>
-                            <i className="fas fa-times"></i>
-                          </button>
-                      </li>
+                      <ListItem key={item.id} {...item} index={index} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
                     )
                   })
                 }
@@ -198,12 +184,12 @@ export const mapDispatchToProps = (dispatch) => ({
   fetchAllNotes: (url) => dispatch(fetchAllNotes(url))
 })
 
-Note.propTypes = {
+NoteForm.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
-  toHomePage: PropTypes.bool.isRequired,
+  list: PropTypes.array,
+  toHomePage: PropTypes.bool,
   error: PropTypes.string.isRequired,
   hasError: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Note)
+export default connect(mapStateToProps, mapDispatchToProps)(NoteForm)

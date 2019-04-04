@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { saveNote, fetchNotes, hasError } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
 import NotesContainer from '../NotesContainer/NotesContainer';
-import Note from '../Note/Note';
+import NoteForm from '../NoteForm/NoteForm';
 import PropTypes from 'prop-types'
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
-
-import { fetchData } from '../../utility/fetchData';
 
 export class App extends Component {
 
@@ -28,9 +26,9 @@ export class App extends Component {
           <Route path="/notes/:id" render={({match}) => {
             const { id } = match.params;
             const currentNote = this.props.allNotes.find(note => note.id == id)
-            return <Note type="existing-note" noteId={id} {...currentNote}/>
+            return <NoteForm type="existing-note" noteId={id} {...currentNote}/>
           }} />
-          <Route path="/new-note" render={ () => <Note type="new-note"/> } />
+          <Route path="/new-note" render={ () => <NoteForm type="new-note"/> } />
         </main>
       </div>
     );

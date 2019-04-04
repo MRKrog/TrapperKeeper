@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Note } from './Note';
+import { NoteForm } from './NoteForm';
 
 
-describe('Note', () => {
+describe('NoteForm', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Note />)
+    wrapper = shallow(<NoteForm />)
   })
 
   it('should match the snapshot', () => {

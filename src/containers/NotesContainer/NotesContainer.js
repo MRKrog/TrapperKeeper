@@ -31,4 +31,4 @@ export const mapStateToProps = (state) => ({
   allNotes: state.allNotes,
 })
 
-export default connect(mapStateToProps, null)(NotesContainer);
+export default connect(mapStateToProps)(NotesContainer);

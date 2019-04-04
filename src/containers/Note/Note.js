@@ -10,7 +10,6 @@ export class Note extends Component {
     super(props);
     this.state = {
       title: '',
-      title: '',
       list: []
     }
   }
@@ -54,8 +53,6 @@ export class Note extends Component {
     }
   }
 
-
-
   handleTitleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -77,7 +74,13 @@ export class Note extends Component {
 
   addItem = (e) => {
     e.preventDefault()
-    this.setState({ list: [...this.state.list, ""] })
+    this.setState({ list: [...this.state.list, {
+        id: shortid.generate(),
+        isComplete: false,
+        text: ""
+       }
+      ]
+     })
   }
 
   render() {

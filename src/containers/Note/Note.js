@@ -11,7 +11,6 @@ import { fetchData } from '../../utility/fetchData';
 
 import { List } from '../List/List';
 
-
 export class Note extends Component {
   constructor(props) {
     super(props);
@@ -165,19 +164,19 @@ export class Note extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  note: state.note,
-  allNotes: state.allNotes,
   error: state.error
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  storeNote: (note) => dispatch(saveNote(note)),
-  fetchNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
   hasError: (message) => dispatch(hasError(message))
 })
 
 Note.propTypes = {
-
+  title: PropTypes.string.isRequired,
+  list: PropTypes.array.isRequired,
+  toHomePage: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  hasError: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note)

@@ -11,7 +11,6 @@ import PropTypes from 'prop-types'
 
 import { fetchData } from '../../utility/fetchData';
 
-
 export class App extends Component {
 
   componentDidMount() {
@@ -49,7 +48,6 @@ export class App extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  note: state.note,
   allNotes: state.allNotes,
   error: state.error
 })
@@ -61,7 +59,11 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 App.propTypes = {
-
+  allNotes: PropTypes.array.isRequired,
+  error: PropTypes.string.isRequired,
+  storeNote: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
+  hasError: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

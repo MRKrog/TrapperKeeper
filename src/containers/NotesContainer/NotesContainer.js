@@ -21,8 +21,6 @@ export class NotesContainer extends Component {
   render() {
     return (
       <div className="NotesContainer">
-        <h2>NotesContainer</h2>
-        <Link to="/new-note">New Note</Link>
         { this.props.allNotes && this.generateNotes() }
       </div>
     )

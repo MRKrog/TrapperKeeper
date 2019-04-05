@@ -37,10 +37,10 @@ exports[`NoteForm should match the snapshot 1`] = `
           <ListItem
             handleItemChange={[Function]}
             handleItemDelete={[Function]}
-            id="awXRCu9Bm"
+            id="6a2dSO2Ql"
             index={0}
             isComplete={false}
-            key="awXRCu9Bm"
+            key="6a2dSO2Ql"
             text=""
             toggleComplete={[Function]}
           />
@@ -69,11 +69,6 @@ exports[`NoteForm should match the snapshot 1`] = `
             />
           </button>
         </section>
-        <button
-          onClick={[Function]}
-        >
-          Add List
-        </button>
         <section
           className="Note-Error"
         >

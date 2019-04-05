@@ -11,12 +11,12 @@ export class ListItem extends Component {
   }
 
   render() {
-    const { id, index, isComplete, text, handleItemChange, handleItemDelete } = this.props
-    console.log(this.props)
+    const { id, index, isComplete, text, handleItemChange, handleItemDelete, toggleComplete } = this.props
+    console.log(id)
     return (
       <li key={ index }>
                         <label className="container">
-                          <input type="checkbox" />
+                          <input onClick={() => toggleComplete(id)} type="checkbox" />
                           <span className="checkmark"></span>
                         </label>
                         <input type="text"

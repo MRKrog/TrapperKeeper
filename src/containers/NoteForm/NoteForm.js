@@ -10,7 +10,7 @@ import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
-import { ListItem } from '../ListItem/ListItem';
+import { ListItem } from '../../components/ListItem/ListItem';
 
 export class NoteForm extends Component {
   constructor(props) {
@@ -187,6 +187,7 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
+              <div><p>Completed Items</p></div>
               <ul className="ListItems Completed">
                 {
                   seperatedList.completed.items.map((item, index) => {

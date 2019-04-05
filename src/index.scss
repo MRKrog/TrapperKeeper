@@ -14,10 +14,11 @@ $white: #231f20;
 
 @import './components/Header/Header';
 @import './components/Loader/Loader';
+@import './components/ListItem/ListItem';
 @import './containers/App/App';
 @import './containers/NotesContainer/NotesContainer';
 @import './containers/NoteForm/NoteForm';
-@import './containers/ListItem/ListItem';
+
 
 
 

@@ -17,20 +17,18 @@ export class NoteForm extends Component {
     super(props);
     this.state = {
       title: '',
-      list: [],
+      list: [{
+              id: shortid.generate(),
+              isComplete: false,
+              text: ""
+            }],
       toHomePage: false,
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     if(this.props.noteId) {
-      console.log('GET NOTE');
-      this.findNote(this.props.noteId)
-    } else {
-      console.log('NEW NOTE');
-      this.setState({
-        // id: shortid.generate()
-      })
+      await this.findNote(this.props.noteId)
     }
   }
 
@@ -44,7 +42,6 @@ export class NoteForm extends Component {
         title: response.title,
         list: [...response.list]
       })
-      console.log('state', this.state);
     } catch (error) {
       console.log(error.message);
     }
@@ -52,10 +49,9 @@ export class NoteForm extends Component {
 
   handleType = (e) => {
     e.preventDefault()
-    const { type } = this.props
-    if(type === "new-note") {
+    if(this.props.type === "new-note") {
       this.handlePost()
-    } else if(type === "existing-note") {
+    } else if(this.props.type === "existing-note") {
       this.handlePut()
     }
   }
@@ -75,7 +71,7 @@ export class NoteForm extends Component {
 
   handlePut = async () => {
     const { title, list } = this.state;
-    const url = `http://localhost:3001/api/v1/notes/${this.props.noteId}`;
+    const url = `http://localhost:3001/api/v1/notes/${this.props.id}`;
     try {
       const options = await fetchOptionsCreator('PUT', { title, list })
       await fetchData(url, options)
@@ -93,6 +89,8 @@ export class NoteForm extends Component {
   }
 
   handleItemChange = (e, index) => {
+    console.log(index);
+    console.log(e.target);
     e.preventDefault()
     this.state.list[index].text = e.target.value;
     this.setState({ list: this.state.list })
@@ -117,7 +115,7 @@ export class NoteForm extends Component {
 
   deleteNote = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:3001/api/v1/notes/${this.props.noteId}`;
+    const url = `http://localhost:3001/api/v1/notes/${this.props.id}`;
     try {
       const options = await fetchOptionsCreator('DELETE', {})
       await fetchData(url, options)
@@ -135,22 +133,35 @@ export class NoteForm extends Component {
       }
       return item
     });
-    this.setState({list: updatedList})
+    this.setState({list: updatedList })
+  }
+
+  handleSeperate = () => {
+    const { list } = this.state
+    let completed = list.filter(item => item.isComplete)
+    let uncompleted = list.filter(item => !item.isComplete)
+    return {
+      completed: {
+        items: completed,
+      },
+      uncompleted: {
+        items: uncompleted,
+      }
+    }
   }
 
   render() {
-    if(this.state.toHomePage === true){
+    const { toHomePage } = this.state
+    if(toHomePage === true){
       return <Redirect to='/' />
     }
-
+    let seperatedList = this.handleSeperate();
     return (
       <div className="Note">
         <section className="Note-Content">
-
           <NavLink to="/" className="Note-Close">
             <button><i className="fas fa-times"></i></button>
           </NavLink>
-
           <div className="Note-Form-Container">
             <form className="Note-Form">
               <input type="text"
@@ -162,21 +173,32 @@ export class NoteForm extends Component {
                      />
               <ul className="ListItems">
                 {
-                  this.state.list.map((item, index) => {
+                  seperatedList.uncompleted.items.map((item, index) => {
                     return (
                       <ListItem key={item.id} {...item} index={index} toggleComplete={this.toggleComplete} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
                     )
                   })
                 }
               </ul>
+              <ul className="ListItems Completed">
+                {
+                  seperatedList.completed.items.map((item, index) => {
+                    return (
+                      <ListItem key={item.id} {...item} index={index} toggleComplete={this.toggleComplete} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
+                    )
+                  })
+                }
+              </ul>
+              <section className="Note-Options">
+                <button className="Note-Save" onClick={this.handleType} type="submit">
+                  <i className="fas fa-save"></i>
+                </button>
+                <button className="Note-Delete" onClick={this.deleteNote}>
+                  <i className="fas fa-trash-alt"></i>
+                </button>
+              </section>
               <button onClick={(e) => this.addItem(e)}>Add List</button>
-              <button onClick={this.handleType}
-                      className="Note-Save"
-                      type="submit">
-                      Save Note
-              </button>
-              <button onClick={this.deleteNote}>Delete Note</button>
-              <h2>{this.props.error && this.props.error}</h2>
+              <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
             </form>
           </div>
         </section>
@@ -195,11 +217,11 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 NoteForm.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   list: PropTypes.array,
   toHomePage: PropTypes.bool,
-  error: PropTypes.string.isRequired,
-  hasError: PropTypes.func.isRequired
+  error: PropTypes.string,
+  hasError: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteForm)

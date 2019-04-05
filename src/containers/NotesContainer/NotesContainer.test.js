@@ -18,7 +18,6 @@ describe('NotesContainer', () => {
   })
 
   it('should return JSX when generateNotes is called', () => {
-    console.log(wrapper.generateNotes);
     expect(wrapper.generateNotes).toMatchSnapshot();
   })
 

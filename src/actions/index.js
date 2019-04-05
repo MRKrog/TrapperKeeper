@@ -1,6 +1,4 @@
 // actions
-console.log('in has action reducer');
-
 export const fetchNotes = (allNotes) => ({
   type: 'FETCH_NOTES',
   allNotes

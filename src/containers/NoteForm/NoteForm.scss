@@ -69,6 +69,12 @@
       margin: 0;
       padding: 0;
 
+      &.Completed {
+        li {
+          text-decoration: line-through;
+        }
+      }
+
       li {
         list-style-type: none;
         border-top: #d2d2d2 solid 1px;
@@ -158,9 +164,49 @@
 
     }
 
-    .Note-Save {
-      margin-top: 2em;
-    }
+
 
   }
+
+  .Note-Options {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3em;
+
+    button {
+      background: none;
+      outline: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #6f6f6f;
+      opacity: 1;
+      transition: all .5 ease;
+
+      &:hover {
+        opacity: .6;
+      }
+    }
+
+    .Note-Save {
+      i {
+        position: relative;
+        bottom: -2px;
+      }
+    }
+
+    .Note-Delete {
+
+    }
+
+
+  }
+
+  .Note-Error {
+    h2 {
+      margin: 0;
+    }
+  }
+
+
 }

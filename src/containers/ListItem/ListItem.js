@@ -12,9 +12,8 @@ export class ListItem extends Component {
 
   render() {
     const { id, index, isComplete, text, handleItemChange, handleItemDelete, toggleComplete } = this.props
-    console.log(id)
     return (
-      <li key={ index }>
+      <li key={index}>
         <label className="container">
           <input onClick={() => toggleComplete(id)} type="checkbox" className={isComplete ? 'checked' : null}/>
           <span className="checkmark"></span>

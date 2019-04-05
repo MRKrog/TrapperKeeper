@@ -41,18 +41,16 @@ export const mapStateToProps = (state) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  storeNote: (note) => dispatch(saveNote(note)),
-  storeAllNotes: (allNotes) => dispatch(fetchNotes(allNotes)),
   showError: (message) => dispatch(hasError(message)),
   fetchAllNotes: (url) => dispatch(fetchAllNotes(url)),
 })
 
 App.propTypes = {
-  allNotes: PropTypes.array.isRequired,
+  allNotes: PropTypes.array,
   error: PropTypes.string,
-  storeNote: PropTypes.func.isRequired,
+  storeNote: PropTypes.func,
   fetchNotes: PropTypes.func,
-  showError: PropTypes.func.isRequired
+  showError: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -22,7 +22,7 @@ export class ListItem extends Component {
                 placeholder="List Item"
                 value={text}
                 name="ListItem"
-                onChange={(e) => handleItemChange(e, id)}
+                onChange={(e) => handleItemChange(e, id, index)}
                 disabled={isComplete ? 'disabled' : null}
           />
           <button onClick={(e) => handleItemDelete(e, index)}>

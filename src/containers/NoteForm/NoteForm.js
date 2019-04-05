@@ -128,6 +128,16 @@ export class NoteForm extends Component {
     }
   }
 
+  toggleComplete = (id) => {
+    const updatedList = this.state.list.map(item => {
+      if(id === item.id) {
+        item.isComplete = !item.isComplete
+      }
+      return item
+    });
+    this.setState({list: updatedList})
+  }
+
   render() {
     if(this.state.toHomePage === true){
       return <Redirect to='/' />
@@ -154,7 +164,7 @@ export class NoteForm extends Component {
                 {
                   this.state.list.map((item, index) => {
                     return (
-                      <ListItem key={item.id} {...item} index={index} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
+                      <ListItem key={item.id} {...item} index={index} toggleComplete={this.toggleComplete} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
                     )
                   })
                 }

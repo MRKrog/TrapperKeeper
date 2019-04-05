@@ -130,7 +130,7 @@
           background-color: #ccc;
         }
 
-        .container input:checked ~ .checkmark {
+        input.checked ~ .checkmark {
           background-color: #2196F3;
         }
 
@@ -140,7 +140,7 @@
           display: none;
         }
 
-        .container input:checked ~ .checkmark:after {
+        input.checked ~ .checkmark:after {
           display: block;
         }
 

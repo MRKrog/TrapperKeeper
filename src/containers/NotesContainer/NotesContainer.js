@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export class NotesContainer extends Component {
+export const NotesContainer = (props) => {
 
-  generateNotes() {
-    return this.props.allNotes.map(note => 
+  const generateNotes = () => {
+    return props.allNotes.map(note => 
       <Link to={`/notes/${note.id}`} key={note.id} className='note-click'>
         <div>
           <h3>{note.title}</h3>
@@ -14,13 +14,12 @@ export class NotesContainer extends Component {
     )
   }
 
-  render() {
-    return (
-      <div className="NotesContainer">
-        { this.props.allNotes && this.generateNotes() }
-      </div>
-    )
-  }
+  return (
+    <div className="NotesContainer">
+      { props.allNotes && generateNotes() }
+    </div>
+  )
+
 }
 
 export const mapStateToProps = (state) => ({

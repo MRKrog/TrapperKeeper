@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItem should match the snapshot 1`] = `
+<li
+  key="0"
+>
+  <label
+    className="container"
+  >
+    <input
+      className="checkbox not-checked"
+      onClick={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="checkmark"
+    />
+  </label>
+  <input
+    className="list-item-input"
+    name="ListItem"
+    onChange={[Function]}
+    placeholder="List Item"
+    type="text"
+  />
+  <button
+    className="delete-button"
+    onClick={[Function]}
+  >
+    <i
+      className="fas fa-times"
+    />
+  </button>
+</li>
+`;

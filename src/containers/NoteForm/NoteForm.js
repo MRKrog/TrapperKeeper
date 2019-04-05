@@ -36,7 +36,7 @@ export class NoteForm extends Component {
     const url = `http://localhost:3001/api/v1/notes/${noteId}`
     try {
       const response = await fetchData(url)
-      console.log('response', response);
+      // console.log('response', response);
       this.setState({
         id: response.id,
         title: response.title,
@@ -88,12 +88,18 @@ export class NoteForm extends Component {
     });
   }
 
-  handleItemChange = (e, index) => {
-    console.log(index);
-    console.log(e.target);
-    e.preventDefault()
-    this.state.list[index].text = e.target.value;
-    this.setState({ list: this.state.list })
+  handleItemChange = (e, id) => {
+    e.preventDefault();
+    const foundItem = this.state.list.find(item => item.id === id);
+    foundItem.text = e.target.value;
+    this.setState({ list: this.state.list });
+    // this.generateNewListItem(e);
+  }
+
+  generateNewListItem = (e) => {
+    const { value } = e.target;
+    if ( value.length === 1 ) console.log('render new item..');
+    // if the id doesn't exist, create a new list item
   }
 
   handleItemDelete = (e, index) => {

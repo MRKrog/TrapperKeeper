@@ -88,18 +88,19 @@ export class NoteForm extends Component {
     });
   }
 
-  handleItemChange = (e, id) => {
+  handleItemChange = (e, id, index) => {
     e.preventDefault();
     const foundItem = this.state.list.find(item => item.id === id);
     foundItem.text = e.target.value;
     this.setState({ list: this.state.list });
-    // this.generateNewListItem(e);
+    this.generateNewListItem(e, foundItem);
   }
 
-  generateNewListItem = (e) => {
+  generateNewListItem = (e, foundItem) => {
     const { value } = e.target;
-    if ( value.length === 1 ) console.log('render new item..');
-    // if the id doesn't exist, create a new list item
+    const lastItem = this.state.list.filter(item => item.isComplete === false).pop();
+
+    if ( value.length === 1 && foundItem.id === lastItem.id ) this.addItem();
   }
 
   handleItemDelete = (e, index) => {
@@ -108,8 +109,8 @@ export class NoteForm extends Component {
     this.setState({ list: this.state.list })
   }
 
-  addItem = (e) => {
-    e.preventDefault()
+  addItem = () => {
+    // e.preventDefault()
     this.setState({ list: [...this.state.list, {
         id: shortid.generate(),
         isComplete: false,
@@ -203,7 +204,6 @@ export class NoteForm extends Component {
                   <i className="fas fa-trash-alt"></i>
                 </button>
               </section>
-              <button onClick={(e) => this.addItem(e)}>Add List</button>
               <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
             </form>
           </div>

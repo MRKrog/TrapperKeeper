@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export class NotesContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { }
-  }
 
   generateNotes() {
     return this.props.allNotes.map(note => 

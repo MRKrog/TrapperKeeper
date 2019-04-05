@@ -11,7 +11,7 @@ export class ListItem extends Component {
   }
 
   render() {
-    const { id, index, isComplete, text, handleItemChange, handleItemDelete, toggleComplete } = this.props
+    const { id, index, isComplete, text, handleItemChange, handleItemDelete, toggleComplete } = this.props;
     return (
       <li key={index}>
         <label className="container">
@@ -22,7 +22,8 @@ export class ListItem extends Component {
                 placeholder="List Item"
                 value={text}
                 name="ListItem"
-                onChange={(e) => handleItemChange(e, index)}
+                onChange={(e) => handleItemChange(e, id, index)}
+                disabled={isComplete ? 'disabled' : null}
           />
           <button onClick={(e) => handleItemDelete(e, index)}>
             <i className="fas fa-times"></i>

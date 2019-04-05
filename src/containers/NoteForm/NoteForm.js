@@ -36,7 +36,6 @@ export class NoteForm extends Component {
     const url = `http://localhost:3001/api/v1/notes/${noteId}`
     try {
       const response = await fetchData(url)
-      // console.log('response', response);
       this.setState({
         id: response.id,
         title: response.title,
@@ -110,7 +109,6 @@ export class NoteForm extends Component {
   }
 
   addItem = () => {
-    // e.preventDefault()
     this.setState({ list: [...this.state.list, {
         id: shortid.generate(),
         isComplete: false,

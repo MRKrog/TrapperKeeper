@@ -3,11 +3,11 @@
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  // background-color: #081F29;
   text-align: center;
 
   .Content-Container {
-    padding: 20px;
-    padding-top: 80px;
+    width: 100%;
+    max-width: 1400px;
+    padding: 2em;
   }
 }

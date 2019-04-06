@@ -10,7 +10,9 @@ import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
-import { ListItem } from '../ListItem/ListItem';
+import { ListItem } from '../../components/ListItem/ListItem';
+import NoteOptions from '../../components/NoteOptions/NoteOptions';
+
 
 export class NoteForm extends Component {
   constructor(props) {
@@ -36,7 +38,6 @@ export class NoteForm extends Component {
     const url = `http://localhost:3001/api/v1/notes/${noteId}`
     try {
       const response = await fetchData(url)
-      // console.log('response', response);
       this.setState({
         id: response.id,
         title: response.title,
@@ -110,7 +111,6 @@ export class NoteForm extends Component {
   }
 
   addItem = () => {
-    // e.preventDefault()
     this.setState({ list: [...this.state.list, {
         id: shortid.generate(),
         isComplete: false,
@@ -166,9 +166,6 @@ export class NoteForm extends Component {
     return (
       <div className="Note">
         <section className="Note-Content">
-          <NavLink to="/" className="Note-Close">
-            <button><i className="fas fa-times"></i></button>
-          </NavLink>
           <div className="Note-Form-Container">
             <form className="Note-Form">
               <input type="text"
@@ -187,6 +184,7 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
+              <div><p>Completed Items</p></div>
               <ul className="ListItems Completed">
                 {
                   seperatedList.completed.items.map((item, index) => {
@@ -196,14 +194,7 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
-              <section className="Note-Options">
-                <button className="Note-Save" onClick={this.handleType} type="submit">
-                  <i className="fas fa-save"></i>
-                </button>
-                <button className="Note-Delete" onClick={this.deleteNote}>
-                  <i className="fas fa-trash-alt"></i>
-                </button>
-              </section>
+              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} />
               <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
             </form>
           </div>

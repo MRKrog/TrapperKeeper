@@ -1,0 +1,70 @@
+.Note-Options {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+  align-items: baseline;
+
+  button {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #6f6f6f;
+    opacity: 1;
+    transition: all .5 ease;
+    margin-right: .5em;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  .Note-Save {
+    i {
+      position: relative;
+      bottom: -3px;
+    }
+  }
+
+  .Note-Delete {
+    i {
+      position: relative;
+      bottom: -2px;
+    }
+  }
+
+  .Note-Close {
+
+    button {
+      margin-right: 0;
+      font-family: $font-Roboto;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      height: 100%;
+      box-sizing: border-box;
+      color: rgba(0,0,0,0.95);
+      background-color: #cccccc;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      letter-spacing: .01785714em;
+      font-size: .75rem;
+      font-weight: 500;
+      line-height: .6;
+      height: 24px;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: all .5s ease;
+      opacity: .5;
+
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+
+
+}

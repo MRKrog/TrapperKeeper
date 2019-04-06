@@ -25,13 +25,39 @@ export class NoteForm extends Component {
               text: ""
             }],
       toHomePage: false,
+      redirect: false
     }
   }
-
+  
   componentDidMount = async () => {
     if(this.props.noteId) {
-      await this.findNote(this.props.noteId)
+      await this.findNote(this.props.noteId);
     }
+    document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
+  }
+
+  handleKeydown = (event) => {
+    if ( event.code === 'Enter' ) this.handleEnter(event);
+    if ( event.code === 'Escape' ) this.handleEscape();
+  }
+
+  handleEnter = (event) => {
+    if ( event.path[0].localName !== 'input' ) return null;
+    
+    const { id, value } =  event.path[0];
+    const { list } = this.state;
+    const matchItem = list.find(item => item.id === id);
+    const lastItem = list.filter(item => item.isComplete === false).pop();
+    
+    if ( value.length > 0 && matchItem === lastItem ) this.addItem();
+  }
+
+  handleEscape = () => {
+    this.setState({redirect: true})
   }
 
   findNote = async (noteId) => {
@@ -158,6 +184,8 @@ export class NoteForm extends Component {
   }
 
   render() {
+    if (this.state.redirect) return <Redirect to='/' />;
+
     const { toHomePage } = this.state
     if(toHomePage === true){
       return <Redirect to='/' />
@@ -167,7 +195,7 @@ export class NoteForm extends Component {
       <div className="Note">
         <section className="Note-Content">
           <div className="Note-Form-Container">
-            <form className="Note-Form">
+            <div className="Note-Form">
               <input type="text"
                      onChange={this.handleTitleChange}
                      placeholder="Title"
@@ -196,7 +224,7 @@ export class NoteForm extends Component {
               </ul>
               <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} />
               <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
-            </form>
+            </div>
           </div>
         </section>
       </div>

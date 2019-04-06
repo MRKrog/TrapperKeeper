@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 import { hasError } from '../../actions/index';
-
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
-
 import { ListItem } from '../ListItem/ListItem';
 
 export class NoteForm extends Component {
@@ -23,6 +20,7 @@ export class NoteForm extends Component {
               text: ""
             }],
       toHomePage: false,
+      errorPage: false
     }
   }
 
@@ -35,8 +33,7 @@ export class NoteForm extends Component {
   findNote = async (noteId) => {
     const url = `http://localhost:3001/api/v1/notes/${noteId}`
     try {
-      const response = await fetchData(url)
-      // console.log('response', response);
+      const response = await fetchData(url);
       this.setState({
         id: response.id,
         title: response.title,
@@ -44,15 +41,16 @@ export class NoteForm extends Component {
       })
     } catch (error) {
       console.log(error.message);
+      if(error.message === 'Note was not found'){this.setState({errorPage: true})}
     }
   }
 
   handleType = (e) => {
     e.preventDefault()
     if(this.props.type === "new-note") {
-      this.handlePost()
+      this.handlePost();
     } else if(this.props.type === "existing-note") {
-      this.handlePut()
+      this.handlePut();
     }
   }
 
@@ -110,7 +108,6 @@ export class NoteForm extends Component {
   }
 
   addItem = () => {
-    // e.preventDefault()
     this.setState({ list: [...this.state.list, {
         id: shortid.generate(),
         isComplete: false,
@@ -158,9 +155,11 @@ export class NoteForm extends Component {
   }
 
   render() {
-    const { toHomePage } = this.state
+    const { toHomePage, errorPage } = this.state
     if(toHomePage === true){
       return <Redirect to='/' />
+    } else if(errorPage === true) {
+      return <Redirect to='/404' />
     }
     let seperatedList = this.handleSeperate();
     return (

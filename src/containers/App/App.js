@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { saveNote, fetchNotes, hasError } from '../../actions/index';
+import { hasError } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
 import NotesContainer from '../NotesContainer/NotesContainer';
 import NoteForm from '../NoteForm/NoteForm';
 import PropTypes from 'prop-types'
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
-
+import { ErrorPage } from '../../components/ErrorPage/ErrorPage'
 export class App extends Component {
 
   componentDidMount() {
@@ -29,6 +29,7 @@ export class App extends Component {
             return <NoteForm type="existing-note" noteId={id} {...currentNote}/>
           }} />
           <Route path="/new-note" render={ () => <NoteForm type="new-note"/> } />
+          <Route path="/404" render={ () => <ErrorPage/> } />
         </main>
       </div>
     );

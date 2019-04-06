@@ -23,9 +23,7 @@ $white: #231f20;
 @import './containers/App/App';
 @import './containers/NotesContainer/NotesContainer';
 @import './containers/NoteForm/NoteForm';
-
-
-
+@import './components/ErrorPage/ErrorPage';
 
 * {
   box-sizing: border-box;

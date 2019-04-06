@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 import { hasError } from '../../actions/index';
-
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
-
 import { ListItem } from '../../components/ListItem/ListItem';
 import NoteOptions from '../../components/NoteOptions/NoteOptions';
-
 
 export class NoteForm extends Component {
   constructor(props) {
@@ -25,7 +21,9 @@ export class NoteForm extends Component {
               text: ""
             }],
       toHomePage: false,
-      redirect: false
+      errorPage: false,
+      redirect: false,
+
     }
   }
   
@@ -71,15 +69,16 @@ export class NoteForm extends Component {
       })
     } catch (error) {
       console.log(error.message);
+      if(error.message === 'Error'){this.setState({errorPage: true})}
     }
   }
 
   handleType = (e) => {
     e.preventDefault()
     if(this.props.type === "new-note") {
-      this.handlePost()
+      this.handlePost();
     } else if(this.props.type === "existing-note") {
-      this.handlePut()
+      this.handlePut();
     }
   }
 
@@ -183,12 +182,17 @@ export class NoteForm extends Component {
     }
   }
 
-  render() {
-    if (this.state.redirect) return <Redirect to='/' />;
+  handleClose = () => {
+    this.props.hasError('');
+  }
 
-    const { toHomePage } = this.state
+  render() {
+    const { toHomePage, errorPage } = this.state
+    if (this.state.redirect) return <Redirect to='/' />;
     if(toHomePage === true){
       return <Redirect to='/' />
+    } else if(errorPage === true) {
+      return <Redirect to='/404' />
     }
     let seperatedList = this.handleSeperate();
     return (
@@ -222,7 +226,7 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
-              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} />
+              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} handleClose={this.handleClose} />
               <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
             </div>
           </div>

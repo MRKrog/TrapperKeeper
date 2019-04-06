@@ -101,12 +101,13 @@ export class NoteForm extends Component {
     const { value } = e.target;
     const lastItem = this.state.list.filter(item => item.isComplete === false).pop();
 
-    if ( value.length === 1 && foundItem.id === lastItem.id ) this.addItem();
+    if (value.length === 1 && foundItem.id === lastItem.id) this.addItem();
   }
 
-  handleItemDelete = (e, index) => {
-    e.preventDefault()
-    this.state.list.splice(index, 1)
+  handleItemDelete = (e, id) => {
+    e.preventDefault();
+    let foundIndex = this.state.list.findIndex(item => item.id == id)
+    this.state.list.splice(foundIndex, 1)
     this.setState({ list: this.state.list })
   }
 
@@ -140,7 +141,7 @@ export class NoteForm extends Component {
       }
       return item
     });
-    this.setState({list: updatedList })
+    this.setState({ list: updatedList })
   }
 
   handleSeperate = () => {
@@ -184,7 +185,12 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
-              <div><p>Completed Items</p></div>
+              {
+                seperatedList.completed.items.length > 0 &&
+                <div className="Completed-Message">
+                  <p>{seperatedList.completed.items.length} Completed Items</p>
+                </div>
+              }
               <ul className="ListItems Completed">
                 {
                   seperatedList.completed.items.map((item, index) => {

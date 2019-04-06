@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

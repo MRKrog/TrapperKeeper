@@ -1,9 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { App } from './App';
-import { NoteForm } from '../NoteForm/NoteForm';
-import { NotesContainer } from '../NotesContainer/NotesContainer';
-import { mapStateToProps, mapDispatchToProps } from './App';
+import { App, mapStateToProps, mapDispatchToProps } from './App';
 
 const mockNotes = [{name: 'Luke', favorite: true}, {name: 'Han Solo', favorite: false}]
 
@@ -13,8 +10,22 @@ describe('App', () => {
     let wrapper;
     let mockStoreAllNotes;
 
+    const mockAllNotes = [
+      { id: "123ABA",
+      title: 'Worf ToDo',
+      list: [
+        { id: "123213", text: 'Eat food', isComplete: false },
+      ]
+    },
+    { id: "987GDGFD",
+    title: 'Jake ToDo',
+    list: [
+      { id: "2353534543", text: 'Do basic styling', isComplete: false },
+    ]
+  }];
+
     beforeEach(() => {
-      mockStoreAllNotes = jest.fn()
+      mockStoreAllNotes = jest.fn().mockImplementation(() => Promise.resolve({results: mockAllNotes}))
       wrapper = shallow(<App fetchAllNotes={mockStoreAllNotes} />)
     })
 
@@ -23,8 +34,9 @@ describe('App', () => {
     })
 
     it("should invoke the function storeAllNotes on componentDidMount", async () => {
-      wrapper.instance().componentDidMount()
-      expect(fetchAllNotes).toHaveBeenCalled()
+      const appInstance = wrapper.instance()
+      appInstance.componentDidMount()
+      expect(appInstance.fetchAllNotes).toBeCalled()
     });
 
     it("should call storeAllNotes with expected url", async () => {

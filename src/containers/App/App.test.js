@@ -1,69 +1,119 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { App } from './App';
-import { NoteForm } from '../NoteForm/NoteForm';
-import { NotesContainer } from '../NotesContainer/NotesContainer';
-import { mapStateToProps, mapDispatchToProps } from './App';
+import { App, mapStateToProps, mapDispatchToProps } from './App';
+import { hasError } from '../../actions'
+import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
-const mockNotes = [{name: 'Luke', favorite: true}, {name: 'Han Solo', favorite: false}]
+jest.mock('../../thunks/fetchAllNotes');
 
 describe('App', () => {
 
   describe('App Component', () => {
     let wrapper;
-    let mockStoreAllNotes;
+    let mockfetchAllNotes;
+
+    const mockAllNotes = [
+      { id: "123ABA",
+      title: 'Worf ToDo',
+      list: [
+        { id: "123213", text: 'Eat food', isComplete: false },
+      ]
+      },
+      { id: "987GDGFD",
+      title: 'Jake ToDo',
+      list: [
+        { id: "2353534543", text: 'Do basic styling', isComplete: false },
+      ]
+      }
+    ];
 
     beforeEach(() => {
-      mockStoreAllNotes = jest.fn()
-      wrapper = shallow(<App fetchAllNotes={mockStoreAllNotes} />)
+      mockfetchAllNotes = jest.fn().mockImplementation(() => Promise.resolve({results: mockAllNotes}))
+      wrapper = shallow(<App fetchAllNotes={mockfetchAllNotes} />)
     })
 
     it('should match the snapshot', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it("should invoke the function storeAllNotes on componentDidMount", async () => {
+    it("should invoke the function fetchAllNotes on componentDidMount", async () => {
       wrapper.instance().componentDidMount()
-      expect(fetchAllNotes).toHaveBeenCalled()
-    });
+      expect(mockfetchAllNotes).toBeCalled()
+    })
 
     it("should call storeAllNotes with expected url", async () => {
       const mockUrl = 'http://localhost:3001/api/v1/notes';
       wrapper.instance().componentDidMount()
-      expect(fetchAllNotes).toHaveBeenCalledWith(mockUrl)
+      expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
     })
-
-  })
+  });
 
   describe('mapStateToProps', () => {
-
-    it('should have default state properties', () => {
-      const mockData = {
-        error: '',
-        allNotes: [],
-        filter: [],
+    it('should return an object with a notes array', () => {
+      const mockState = {
+        allNotes: [
+          { id: "123ABA", 
+            title: 'Worf ToDo', 
+            list: [
+              { id: "123", text: 'Eat food', isComplete: false },
+            ]
+          },
+          { id: "987GDGFD",
+            title: 'Jake ToDo',
+            list: [
+              { id: "0098", text: 'Do styling', isComplete: false },
+            ]
+          }
+        ],
+        error: "",
+        fakeState: "Not real state to return"
       }
       const expected = {
-        error: '',
-        allNotes: [],
+        allNotes: [
+          { id: "123ABA", 
+            title: 'Worf ToDo', 
+            list: [
+              { id: "123", text: 'Eat food', isComplete: false },
+            ]
+          },
+          { id: "987GDGFD",
+            title: 'Jake ToDo',
+            list: [
+              { id: "0098", text: 'Do styling', isComplete: false },
+            ]
+          }
+        ],
+        error: "",
       }
-      const mockProps = mapStateToProps(mockData)
-      expect(mockProps).toEqual(expected)
-    })
 
-  })
+      const mappedProps = mapStateToProps(mockState)
+
+      expect(mappedProps).toEqual(expected)
+    })
+  });
 
   describe('mapDispatchToProps', () => {
-
-    it('should call dispatch fetchNotes', () => {
+    it('should call dispatch when using showError function from mapDispatchToProps', () => {
       const mockDispatch = jest.fn()
-      const actionsToDispatch = storeAllNotes(mockNotes)
+      const mockError = "Something went wrong"
+      const actionToDispatch = hasError(mockError)
       const mappedProps = mapDispatchToProps(mockDispatch)
-      mappedProps.storeAllNotes(mockNotes)
 
-      expect(mockDispatch).toHaveBeenCalledWith(actionsToDispatch)
+      mappedProps.showError(mockError)
+
+      expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
     })
 
-  })
+    it('should call dispatch on fetchAllNotes from MDTP', () => {
+      const mockDispatch = jest.fn()
+      const mockUrl = "www.googlenotes.com"
+      const actionToDispatch = fetchAllNotes(mockUrl)
+      const mappedProps = mapDispatchToProps(mockDispatch)
 
-})
+      mappedProps.fetchAllNotes(mockUrl)
+
+      expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
+    })
+  });
+
+});

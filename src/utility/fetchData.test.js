@@ -1,14 +1,12 @@
-import { fetchData } from '../fetchData';
-import React from 'react'
-import { shallow } from 'enzyme'
+import { fetchData } from './fetchData';
 
 describe('fetchData', () => {
-  let mockData
+  let mockBody
   let url
 
   beforeEach(() => {
     url = "www.movies.com"
-    mockData = [
+    mockBody = [
       { id: 1, title: "Archie's Playdate" },
       { id: 1, title: "Shopping List" }
     ]
@@ -20,8 +18,8 @@ describe('fetchData', () => {
     }))
   })
 
-  it('should take an expected url', () => {
-    fetchData(url)
-    expect(fetch).toHaveBeenCalledWith(url)
+  it('should take an expected url', async () => {
+    await fetchData(url, mockBody)
+    expect(fetch).toHaveBeenCalledWith(url, mockBody)
   })
 })

@@ -49,9 +49,8 @@ export const mapDispatchToProps = (dispatch) => ({
 App.propTypes = {
   allNotes: PropTypes.array,
   error: PropTypes.string,
-  storeNote: PropTypes.func,
-  fetchNotes: PropTypes.func,
-  showError: PropTypes.func
+  showError: PropTypes.func,
+  fetchNotes: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

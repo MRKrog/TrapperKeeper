@@ -5,11 +5,13 @@ import icon from '../../media/icon-placeholder.png';
 export const Header = () => {
   return (
     <div className="Header">
-      <section className="Logo">
-        <img alt="TrapperKeeper" src={icon}/>
-        <h1>TrapperKeeper</h1>
+      <section className="Header-Content">
+        <section className="Logo">
+          <img alt="TrapperKeeper" src={icon}/>
+          <h1>TrapperKeeper</h1>
+        </section>
+        <Link to="/new-note">New Note</Link>
       </section>
-      <Link to="/new-note">New Note</Link>
     </div>
   )
 }

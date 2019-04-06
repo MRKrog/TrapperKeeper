@@ -1,3 +1,156 @@
-.List {
-  display: block;
+ul.ListItems {
+  margin: 0;
+  padding: 0;
+
+  button.CheckBox {
+    transition: all .5s ease;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  .ItemIncomplete:last-child {
+
+
+
+
+
+  }
+
+
+  li.ItemIncomplete {
+    position: relative;
+    transition: all .3 ease;
+
+    &:last-child {
+
+      .CheckBox {
+        img { display: none; }
+        position: relative;
+        pointer-events: none;
+        background: url('./media/plus.svg') no-repeat;
+        left: 13.5px;
+        top: 4px;
+        opacity: .5;
+      }
+
+      input.list-item-input {
+        &::placeholder {}
+      }
+
+      .delete-button {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    &:not(:last-child) {
+
+      .delete-button {
+        opacity: 0;
+        pointer-events: none;
+        transition: all .3 ease;
+      }
+
+      &:hover {
+        .delete-button {
+          opacity: .6;
+          pointer-events: all;
+          &:hover {
+            opacity: .9;
+          }
+        }
+      }
+
+      &:focus-within {
+
+        .delete-button {
+          opacity: .6;
+          pointer-events: all;
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          height: 1px;
+          width:100%;
+          top: 0px;
+          border-top: 1px solid rgba(0, 0, 0, 0.15);
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          height: 1px;
+          width:100%;
+          bottom: 0px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+      }
+
+      input.list-item-input {
+        text-decoration: none;
+
+        &::placeholder {
+          color: transparent;
+        }
+      }
+
+      .CheckBox:hover + .list-item-input {
+        text-decoration: line-through;
+      }
+
+    }
+
+  }
+
+  li.ItemComplete {
+
+    input.list-item-input {
+      text-decoration: line-through;
+    }
+
+    .CheckBox:hover + .list-item-input {
+      text-decoration: none;
+    }
+  }
+
+  li {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+
+    .list-item-input {
+      font-family: $font-Roboto;
+      font-size: .9rem;
+      font-weight: 400;
+      line-height: 1.5rem;
+    }
+
+    label {
+      width: 4%;
+    }
+
+    input[type=text] {
+      outline: none;
+      border:none;
+      width: 80%;
+    }
+
+    button {
+      background: none;
+      outline: none;
+      width: 10%;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    img {
+      height: 18px;
+      opacity: .54;
+    }
+  }
 }

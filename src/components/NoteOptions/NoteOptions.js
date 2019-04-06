@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
 
-const NoteOptions = ({ handleType, deleteNote }) => {
+const NoteOptions = ({ handleType, deleteNote, handleClose }) => {
 
   return (
     <div className="Note-Options">
@@ -13,7 +13,7 @@ const NoteOptions = ({ handleType, deleteNote }) => {
       <button className="Note-Delete" onClick={deleteNote}>
         <i className="fas fa-trash-alt"></i>
       </button>
-      <NavLink to="/" className="Note-Close">
+      <NavLink onClick={handleClose} to="/" className="Note-Close">
         <button>Close</button>
       </NavLink>
     </div>

@@ -20,6 +20,7 @@ export const ListItem = (props) => {
              className="list-item-input"
              onChange={(e) => handleItemChange(e, id, index)}
              disabled={isComplete ? 'disabled' : null}
+             id={id}
         />
         <button className="delete-button" onClick={(e) => handleItemDelete(e, id)}>
           <i className="fas fa-times"></i>

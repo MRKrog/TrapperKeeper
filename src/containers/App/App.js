@@ -11,8 +11,7 @@ import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 export class App extends Component {
 
   componentDidMount() {
-    const url = 'http://localhost:3001/api/v1/notes'
-    this.props.fetchAllNotes(url)
+    this.props.fetchAllNotes()
   }
 
   render() {

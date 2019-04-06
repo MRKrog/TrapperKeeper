@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteForm should match the snapshot 1`] = `
+<div
+  className="Note"
+>
+  <section
+    className="Note-Content"
+  >
+    <div
+      className="Note-Form-Container"
+    >
+      <div
+        className="Note-Form"
+      >
+        <input
+          className="Note-Title"
+          name="title"
+          onChange={[Function]}
+          placeholder="Title"
+          type="text"
+          value=""
+        />
+        <ul
+          className="ListItems"
+        >
+          <ListItem
+            handleItemChange={[Function]}
+            handleItemDelete={[Function]}
+            id="nMJJtefFV"
+            index={0}
+            isComplete={false}
+            key="nMJJtefFV"
+            text=""
+            toggleComplete={[Function]}
+          />
+        </ul>
+        <ul
+          className="ListItems Completed"
+        />
+        <NoteOptions
+          deleteNote={[Function]}
+          handleClose={[Function]}
+          handleType={[Function]}
+        />
+        <section
+          className="Note-Error"
+        >
+          <h2 />
+        </section>
+      </div>
+    </div>
+  </section>
+</div>
+`;

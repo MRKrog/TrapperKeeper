@@ -15,7 +15,7 @@ export const ListItem = (props) => {
       <input type="text"
              placeholder="List Item"
              value={text}
-             autocomplete="off"
+             autoComplete="off"
              name="ListItem"
              className="list-item-input"
              onChange={(e) => handleItemChange(e, id, index)}

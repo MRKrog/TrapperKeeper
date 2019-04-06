@@ -2,22 +2,23 @@
 
 exports[`ListItem should match the snapshot 1`] = `
 <li
+  className="ItemIncomplete"
   key="0"
 >
-  <label
-    className="container"
+  <button
+    className="CheckBox"
+    onClick={[Function]}
   >
-    <input
-      className="checkbox not-checked"
-      onClick={[Function]}
-      type="checkbox"
+    <img
+      alt="Check Box"
+      src="unchecked.svg"
     />
-    <span
-      className="checkmark"
-    />
-  </label>
+  </button>
   <input
+    autoComplete="off"
     className="list-item-input"
+    disabled={null}
+    id="123232"
     name="ListItem"
     onChange={[Function]}
     placeholder="List Item"

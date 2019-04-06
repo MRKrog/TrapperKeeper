@@ -36,7 +36,7 @@ describe('ListItem', () => {
   })
 
   it('should call toggleComplete when the checkbox is checked', () => {
-    let input = wrapper.find('.not-checked')
+    let input = wrapper.find('.CheckBox')
     input.simulate('click')
     expect(mockToggleComplete).toHaveBeenCalledWith(mockId)
   })

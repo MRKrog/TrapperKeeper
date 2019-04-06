@@ -27,10 +27,10 @@ exports[`NoteForm should match the snapshot 1`] = `
           <ListItem
             handleItemChange={[Function]}
             handleItemDelete={[Function]}
-            id="nMJJtefFV"
+            id="45LO2HN0o"
             index={0}
             isComplete={false}
-            key="nMJJtefFV"
+            key="45LO2HN0o"
             text=""
             toggleComplete={[Function]}
           />

@@ -69,7 +69,7 @@ export class NoteForm extends Component {
       })
     } catch (error) {
       console.log(error.message);
-      if(error.message === 'Error'){this.setState({errorPage: true})}
+      if(error.message === 'Note was not found'){this.setState({errorPage: true})}
     }
   }
 
@@ -155,7 +155,8 @@ export class NoteForm extends Component {
       this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
       this.setState({ toHomePage: true })
     } catch (error) {
-      this.props.hasError(error.message)
+      this.props.hasError(error.message);
+      if(error.message === 'Note not found'){this.props.hasError('note can not be deleted')}
     }
   }
 

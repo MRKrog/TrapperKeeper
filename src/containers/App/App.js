@@ -11,7 +11,8 @@ import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 export class App extends Component {
 
   componentDidMount() {
-    this.props.fetchAllNotes()
+    const url = 'http://localhost:3001/api/v1/notes'
+    this.props.fetchAllNotes(url)
   }
 
   render() {
@@ -47,9 +48,8 @@ export const mapDispatchToProps = (dispatch) => ({
 App.propTypes = {
   allNotes: PropTypes.array,
   error: PropTypes.string,
-  storeNote: PropTypes.func,
-  fetchNotes: PropTypes.func,
-  showError: PropTypes.func
+  showError: PropTypes.func,
+  fetchNotes: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

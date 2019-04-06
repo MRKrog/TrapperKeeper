@@ -4,6 +4,8 @@ import { App, mapStateToProps, mapDispatchToProps } from './App';
 import { hasError } from '../../actions'
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 
+jest.mock('../../thunks/fetchAllNotes');
+
 describe('App', () => {
 
   describe('App Component', () => {
@@ -34,13 +36,16 @@ describe('App', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it("should invoke the function storeAllNotes on componentDidMount", async () => {
-      const appInstance = wrapper.instance()
-      appInstance.componentDidMount()
+    it("should invoke the function fetchAllNotes on componentDidMount", async () => {
+      wrapper.instance().componentDidMount()
       expect(mockfetchAllNotes).toBeCalled()
     })
 
-    
+    it("should call storeAllNotes with expected url", async () => {
+      const mockUrl = 'http://localhost:3001/api/v1/notes';
+      wrapper.instance().componentDidMount()
+      expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
+    })
   });
 
   describe('mapStateToProps', () => {

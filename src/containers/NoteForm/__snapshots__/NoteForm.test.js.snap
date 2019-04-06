@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoteForm should match the snapshot 1`] = `
+exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
 <div
   className="Note"
 >
@@ -19,7 +19,7 @@ exports[`NoteForm should match the snapshot 1`] = `
           onChange={[Function]}
           placeholder="Title"
           type="text"
-          value=""
+          value="Jake ToDo"
         />
         <ul
           className="ListItems"
@@ -27,11 +27,11 @@ exports[`NoteForm should match the snapshot 1`] = `
           <ListItem
             handleItemChange={[Function]}
             handleItemDelete={[Function]}
-            id="nMJJtefFV"
+            id="O6oYExG7Q"
             index={0}
             isComplete={false}
-            key="nMJJtefFV"
-            text=""
+            key="O6oYExG7Q"
+            text="Do basic styling"
             toggleComplete={[Function]}
           />
         </ul>

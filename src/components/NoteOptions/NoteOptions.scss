@@ -1,7 +1,9 @@
 .Note-Options {
   display: flex;
   justify-content: flex-end;
-  margin: .5em;
+  padding: .5em;
+  margin-top: .5em;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
   align-items: baseline;
 
   button {

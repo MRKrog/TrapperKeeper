@@ -10,20 +10,24 @@ ul.ListItems {
     }
   }
 
-  .ItemIncomplete:last-child {
-
-
-
-
-
-  }
-
-
   li.ItemIncomplete {
     position: relative;
     transition: all .3 ease;
 
     &:last-child {
+      padding-bottom: 7px;
+      &:after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 92%;
+        bottom: 0px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
       .CheckBox {
         img { display: none; }
@@ -76,7 +80,7 @@ ul.ListItems {
           height: 1px;
           width:100%;
           top: 0px;
-          border-top: 1px solid rgba(0, 0, 0, 0.15);
+          border-top: 1px solid rgba(0, 0, 0, 0.3);
         }
         &:after {
           content: '';
@@ -84,7 +88,7 @@ ul.ListItems {
           height: 1px;
           width:100%;
           bottom: 0px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         }
 
       }

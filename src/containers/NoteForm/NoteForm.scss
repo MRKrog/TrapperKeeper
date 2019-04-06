@@ -8,9 +8,6 @@
   z-index: 4000;
   transition: opacity 0.218s ease-in 0s;
 
-  &::before {
-    content: "";
-  }
 }
 
 .Note-Content {
@@ -26,26 +23,7 @@
   transform: translate(-50%,-50%);
   box-shadow: 0px 2px 10px 3px #0000006b;
 
-  .Note-Close {
-    position: absolute;
-    right: 0;
-    top: 0;
 
-    button {
-      outline: none;
-      cursor: pointer;
-      border: none;
-      background: #cccccccc;
-      color: #fff;
-      font-size: 1.25em;
-      border-top-right-radius: 5px;
-      transition: all .5s ease;
-
-      &:hover {
-        color: #a9a9a9;
-      }
-    }
-  }
 }
 
 .Note-Form-Container {
@@ -163,43 +141,6 @@
         }
 
     }
-
-
-
-  }
-
-  .Note-Options {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 3em;
-
-    button {
-      background: none;
-      outline: none;
-      border: none;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: #6f6f6f;
-      opacity: 1;
-      transition: all .5 ease;
-
-      &:hover {
-        opacity: .6;
-      }
-    }
-
-    .Note-Save {
-      i {
-        position: relative;
-        bottom: -2px;
-      }
-    }
-
-    .Note-Delete {
-
-    }
-
-
   }
 
   .Note-Error {

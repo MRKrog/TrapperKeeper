@@ -19,6 +19,7 @@ $white: #231f20;
 @import './components/Header/Header';
 @import './components/Loader/Loader';
 @import './components/ListItem/ListItem';
+@import './components/NoteOptions/NoteOptions';
 @import './containers/App/App';
 @import './containers/NotesContainer/NotesContainer';
 @import './containers/NoteForm/NoteForm';
@@ -38,6 +39,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#__lpform_title {
+#__lpform_title, #__lpform_title_icon {
   display: none;
+}
+
+::-webkit-scrollbar-track {
+    background-clip: padding-box;
+    border: solid transparent;
+    border-width: 0 0 0 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    background-clip: padding-box;
+    border: solid transparent;
+    border-width: 1px 1px 1px 6px;
+    min-height: 28px;
+    padding: 100px 0 0;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);
+}
+
+::-webkit-scrollbar {
+    height: 16px;
+    overflow: visible;
+    width: 16px;
 }

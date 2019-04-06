@@ -26,7 +26,7 @@ export class NoteForm extends Component {
       redirect: false
     }
   }
-// need to commit: handle enter, handle escape, delete on enter bug
+  
   componentDidMount = async () => {
     if(this.props.noteId) {
       await this.findNote(this.props.noteId)

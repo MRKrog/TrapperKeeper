@@ -42,7 +42,7 @@ export class NoteForm extends Component {
       })
     } catch (error) {
       console.log(error.message);
-      if(error.message === 'Note was not found'){this.setState({errorPage: true})}
+      if(error.message === 'Error'){this.setState({errorPage: true})}
     }
   }
 
@@ -155,6 +155,10 @@ export class NoteForm extends Component {
     }
   }
 
+  handleClose = () => {
+    this.props.hasError('');
+  }
+
   render() {
     const { toHomePage, errorPage } = this.state
     if(toHomePage === true){
@@ -194,7 +198,7 @@ export class NoteForm extends Component {
                   })
                 }
               </ul>
-              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} />
+              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} handleClose={this.handleClose} />
               <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
             </form>
           </div>

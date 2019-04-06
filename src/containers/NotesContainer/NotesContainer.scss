@@ -10,8 +10,10 @@
     border: solid hsl(0, 0%, 88%) 1px;
     background: white;
     text-decoration: none;
-    padding: .5em;
+    padding: 1em;
     display: flex;
+    font-family: $font-Abel;
+    box-shadow: 0 0 6px 3px #00000014;
   }
   h3 {
     color: #e0e0e0;

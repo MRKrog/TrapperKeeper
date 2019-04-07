@@ -31,16 +31,16 @@ export class NoteForm extends Component {
     }
     document.addEventListener('keydown', this.handleKeydown);
   }
-
+  //note tested
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
-
+  //note tested
   handleKeydown = (event) => {
     if ( event.code === 'Enter' ) this.handleEnter(event);
     if ( event.code === 'Escape' ) this.handleEscape();
   }
-
+  //note tested
   handleEnter = (event) => {
     if ( event.path[0].localName !== 'input' ) return null;
 
@@ -97,7 +97,6 @@ export class NoteForm extends Component {
     const { title, list } = this.state;
     const url = `http://localhost:3001/api/v1/notes/${this.props.id}`;
     try {
-      console.log(url);
       const options = await fetchOptionsCreator('PUT', { title, list })
       await fetchData(url, options)
       this.setState({ toHomePage: true })
@@ -113,7 +112,7 @@ export class NoteForm extends Component {
     });
   }
 
-  handleItemChange = (e, id, index) => {
+  handleItemChange = (e, id) => {
     e.preventDefault();
     const foundItem = this.state.list.find(item => item.id === id);
     foundItem.text = e.target.value;
@@ -124,7 +123,6 @@ export class NoteForm extends Component {
   generateNewListItem = (e, foundItem) => {
     const { value } = e.target;
     const lastItem = this.state.list.filter(item => item.isComplete === false).pop();
-
     if (value.length === 1 && foundItem.id === lastItem.id) this.addItem();
   }
 

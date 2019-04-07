@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NoteForm, mapStateToProps, mapDispatchToProps } from './NoteForm';
-
+import NoteOptions from '../../components/NoteOptions/NoteOptions';
+import { ListItem } from '../../components/ListItem/ListItem';
 // import { render } from 'react-dom';
 // jest.mock('react-dom');
 
@@ -50,11 +51,8 @@ describe('NoteForm', () => {
       ]
     }
 
-    // mockfetchAllNotes = jest.fn().mockImplementation(() => Promise.resolve({results: mockAllNotes}))
-
     beforeEach(() => {
       fetchData.mockImplementation(() => Promise.resolve(mockFetchedNote))
-
 
       wrapper = shallow(<NoteForm type={mockType}
                                   noteId={noteId}
@@ -115,7 +113,7 @@ describe('NoteForm', () => {
 
     it('should call handlePut when handleType is invoked and has prop type of existing-note', () => {
       const instance = wrapper.instance();
-      const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+      const fakeEvent = { preventDefault: () => {}};
       jest.spyOn(instance, 'handlePut')
       wrapper.instance().handleType(fakeEvent)
       expect(instance.handlePut).toHaveBeenCalled()
@@ -123,7 +121,7 @@ describe('NoteForm', () => {
 
     it('should call handlePost when handleType is invoked and has prop type of new-note', () => {
       const instance = wrapper.instance()
-      const fakeEvent = { preventDefault: () => console.log('preventDefault mock') }
+      const fakeEvent = { preventDefault: () => {} }
       jest.spyOn(instance, 'handlePost');
       wrapper.setProps({ type: "new-note" })
       instance.handleType(fakeEvent)
@@ -140,12 +138,9 @@ describe('NoteForm', () => {
 
     it('shoud call fetchData with the correct url and options', async () => {
       const mockUrl = 'http://localhost:3001/api/v1/notes';
-      // const options = '';
       await wrapper.instance().handlePost()
       const mockOptions = await fetchOptionsCreator('POST')
       expect(fetchData).toHaveBeenCalledWith(mockUrl, mockOptions)
-
-
     })
 
     it('should call fetchAllNotes with the mockUrl when handlePost is invoked and change the state of toHomePage', async () => {
@@ -165,14 +160,173 @@ describe('NoteForm', () => {
 
     it('should call fetchOptionsCreator with the correct params when handPut is invoked', async () => {
       const mockUrl = "http://localhost:3001/api/v1/notes/O6oYExG7Q";
+      const title = 'Jake ToDo';
+      const list = [{ id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: false }];
+
       await wrapper.instance().handlePut()
-
-
+      expect(fetchOptionsCreator).toHaveBeenCalledWith('PUT', { title, list })
     })
 
+    it('should call fetchData with the correct URL when handlPut is invoked', async () => {
+      const mockUrl = "http://localhost:3001/api/v1/notes/O6oYExG7Q";
+      await wrapper.instance().handlePut()
+      expect(fetchData).toHaveBeenCalledWith(mockUrl)
+    })
 
+    it('should change the state of toHomePage when handlePut is invoked', async () => {
+      await wrapper.instance().handlePut()
+      expect(wrapper.state('toHomePage')).toEqual(true)
+    })
 
-    it('', () => {
+    it('should call hasError when fetchData fails when handlePut is invoked', async () => {
+      fetchData.mockImplementationOnce(() => Promise.reject(new Error('Another Bad One yo!')))
+      await wrapper.instance().handlePut()
+
+      expect(mockHasError).toHaveBeenCalledWith('Another Bad One yo!')
+    })
+
+    it('should change state of title input when handleTitleChange is invoked', () => {
+      const mockTitleEvent = { target: { name: 'title', value: 'This is Really Cool' } }
+      wrapper.instance().handleTitleChange(mockTitleEvent)
+
+      expect(wrapper.state('title')).toEqual('This is Really Cool')
+    })
+
+    it('should on invoking handleItemChange update the state of the list object to the new text and fire generateNewListItem with correct params', () => {
+      wrapper.setState({
+        list: [
+          { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+          { id: "55ogax554", text: 'Do More CsS', isComplete: true },
+        ]
+      })
+      const mockFoundItem = { id: "55ogax554", isComplete: true, text: "This is updated list text"}
+      const mockEvent = { target: { name: 'list', value: 'This is updated list text' }, preventDefault: () => {} }
+      const instance = wrapper.instance()
+      spyOn(instance, 'generateNewListItem')
+      instance.handleItemChange(mockEvent, '55ogax554', 1)
+      expect(wrapper.state('list')).toEqual([
+        { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+        { id: "55ogax554", text: 'This is updated list text', isComplete: true },
+      ])
+      expect(instance.generateNewListItem).toHaveBeenCalledWith(mockEvent, mockFoundItem)
+    })
+
+    it('should on invoking generateNewListItem invoke the method addItem', () => {
+      wrapper.setState({
+        list: [
+          { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+          { id: "55ogax554", text: 'Do More CsS', isComplete: true },
+          { id: "1234552f4", text: 'Javascript is cool', isComplete: false },
+        ]
+      })
+      const mockEvent = { target: { value: 'M'}, preventDefault: () => {}}
+      const mockFoundItem = { id: "1234552f4", text: 'Javascript is cool', isComplete: false }
+      const instance = wrapper.instance()
+      spyOn(instance, 'addItem');
+      instance.generateNewListItem(mockEvent, mockFoundItem)
+      expect(instance.addItem).toHaveBeenCalled();
+    })
+
+    it('should on invoking addItem add a new list item to the original state of list', () => {
+      const instance = wrapper.instance()
+      instance.addItem()
+      expect(wrapper.state('list')).toHaveLength(2)
+      expect(wrapper.state('list')).toEqual(
+        [{"id": "O6oYExG7Q", "isComplete": false, "text": "Do basic styling"}, {"id": "12345789", "isComplete": false, "text": ""}]
+      )
+    })
+
+    it('should on invoking deleteNote call fetchOptionsCreator', async () => {
+      const mockEvent = { preventDefault: () => {} }
+      await wrapper.instance().deleteNote(mockEvent)
+      expect(fetchOptionsCreator).toHaveBeenCalledWith('DELETE', {})
+    })
+
+    it('should on invoking deleteNote call fetchData with the correct parameters', async () => {
+      const mockEvent = { preventDefault: () => {} }
+      const mockUrl = 'http://localhost:3001/api/v1/notes/O6oYExG7Q';
+      await wrapper.instance().deleteNote(mockEvent)
+      expect(fetchData).toHaveBeenCalledWith(mockUrl)
+    })
+
+    it('should on invoking deleteNote call fetchallNotes with the correct url and set the state of toHomePage to true', async () => {
+      const mockEvent = { preventDefault: () => {} }
+      const mockUrl = 'http://localhost:3001/api/v1/notes';
+      await wrapper.instance().deleteNote(mockEvent)
+      expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
+    })
+
+    it('should on invoking deleteNote with a bad request send the error correct message', async () => {
+      fetchData.mockImplementationOnce(() => Promise.reject(new Error('Note not found')))
+      const mockEvent = { preventDefault: () => {} }
+      await wrapper.instance().deleteNote(mockEvent)
+      expect(mockHasError).toHaveBeenCalledWith('note can not be deleted')
+    })
+
+    it('should on handleItemDelete splice the specific object out of the list array and then set state with the new info', () => {
+      wrapper.setState({
+        list: [
+          { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+          { id: "55ogax554", text: 'Do More CsS', isComplete: true },
+          { id: "1234552f4", text: 'Javascript is cool', isComplete: false },
+        ]
+      })
+      const mockListAfter = [{ id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+      { id: "55ogax554", text: 'Do More CsS', isComplete: true }]
+
+      const mockEvent = { preventDefault: () => {} }
+      const instance = wrapper.instance();
+      instance.handleItemDelete(mockEvent, '1234552f4')
+      expect(wrapper.state('list')).toEqual(mockListAfter)
+    })
+
+    it('should on toggleComplete switch the status of isComplete', () => {
+      const updatedItem = [{ id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: true }]
+      const instance = wrapper.instance();
+      instance.toggleComplete('O6oYExG7Q')
+      expect(wrapper.state('list')).toEqual(updatedItem)
+    })
+
+    it('should on handleSeperate return an object with complete and uncompleted items', () => {
+      wrapper.setState({
+        list: [
+          { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+          { id: "55ogax554", text: 'Do More CsS', isComplete: true },
+          { id: "1234552f4", text: 'Javascript is cool', isComplete: false },
+        ]
+      })
+      const returnSeperate = {
+        completed: {
+          items: [ { id: '55ogax554', text: 'Do More CsS', isComplete: true } ]
+        },
+        uncompleted: {
+          items: [
+            { id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: false },
+            { id: '1234552f4', text: 'Javascript is cool', isComplete: false } ]
+        }
+      }
+      const instance = wrapper.instance()
+      expect(instance.handleSeperate()).toEqual(returnSeperate)
+    })
+
+    it('should on handleClose call hasError with an empty string', () => {
+      const instance = wrapper.instance()
+      instance.handleClose()
+      expect(mockHasError).toHaveBeenCalledWith('')
+    })
+
+    it('should update match the snapshot when there is more list items in the list state', () => {
+      wrapper.setState({
+        list: [
+          { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
+          { id: "55ogax554", text: 'Do More CsS', isComplete: true },
+          { id: "1234552f4", text: 'Javascript is cool', isComplete: false },
+        ]
+      })
+      expect(wrapper).toMatchSnapshot()
+    })
+
+    it.skip('', () => {
       // const result = wrapper.instance().getListItems();
       // expect(result.length).toBe(2);
       //
@@ -180,6 +334,12 @@ describe('NoteForm', () => {
       // wrapper.instance().updateNoteItems(mockNoteItems, 1);
       // expect(wrapper.state('noteItems')).toEqual(mockNoteItems);
       // expect(wrapper.state('currentFocus')).toEqual(1);
+
+      //
+      // const map = {};
+      // window.addEventListener = jest.fn((event, cb) => {
+      //   map[event] = cb;
+      // });
     })
 
 

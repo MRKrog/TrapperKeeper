@@ -18,7 +18,7 @@ export const ListItem = (props) => {
              autoComplete="off"
              name="ListItem"
              className="list-item-input"
-             onChange={(e) => handleItemChange(e, id, index)}
+             onChange={(e) => handleItemChange(e, id)}
              disabled={isComplete ? 'disabled' : null}
              id={id}
         />

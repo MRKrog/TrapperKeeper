@@ -32,14 +32,17 @@ export class NoteForm extends Component {
     document.addEventListener('keydown', this.handleKeydown);
   }
   //note tested
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
+
   //note tested
   handleKeydown = (event) => {
     if ( event.code === 'Enter' ) this.handleEnter(event);
     if ( event.code === 'Escape' ) this.handleEscape();
   }
+
   //note tested
   handleEnter = (event) => {
     if ( event.path[0].localName !== 'input' ) return null;

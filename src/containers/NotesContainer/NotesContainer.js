@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types'
 
 export class NotesContainer extends Component {
 
@@ -21,11 +22,14 @@ export class NotesContainer extends Component {
       </div>
     )
   }
-
 }
 
 export const mapStateToProps = (state) => ({
   allNotes: state.allNotes,
 })
+
+NotesContainer.propTypes = {
+  allNotes: PropTypes.array
+}
 
 export default connect(mapStateToProps)(NotesContainer);

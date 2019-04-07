@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteOptions should match the snapshot 1`] = `
+<div
+  className="Note-Options"
+>
+  <button
+    className="Note-Save"
+    onClick={[MockFunction]}
+    type="submit"
+  >
+    <i
+      className="fas fa-save"
+    />
+  </button>
+  <button
+    className="Note-Delete"
+    onClick={[MockFunction]}
+  >
+    <i
+      className="fas fa-trash-alt"
+    />
+  </button>
+  <NavLink
+    className="Note-Close"
+    onClick={[MockFunction]}
+    to="/"
+  >
+    <button>
+      Close
+    </button>
+  </NavLink>
+</div>
+`;

@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ListItem } from './ListItem';
 
-
 describe('ListItem', () => {
   let wrapper;
 
@@ -36,7 +35,7 @@ describe('ListItem', () => {
   })
 
   it('should call toggleComplete when the checkbox is checked', () => {
-    let input = wrapper.find('.not-checked')
+    let input = wrapper.find('.CheckBox')
     input.simulate('click')
     expect(mockToggleComplete).toHaveBeenCalledWith(mockId)
   })

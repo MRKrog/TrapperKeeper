@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { hasError } from '../../actions/index';
+import { hasError, isLoading } from '../../actions/index';
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator'
 import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
@@ -48,6 +48,7 @@ export class NoteForm extends Component {
   }
 
   findNote = async (noteId) => {
+    this.props.isLoading(true);
     const url = `http://localhost:3001/api/v1/notes/${noteId}`;
     try {
       const response = await fetchData(url);
@@ -63,6 +64,7 @@ export class NoteForm extends Component {
         this.setState({displayError: true})
       }
     }
+    this.props.isLoading(false);
   }
 
   handleSeparate = () => {
@@ -169,51 +171,59 @@ export class NoteForm extends Component {
     let completedMessage = completedItems.length ? `${completedItems.length} Completed Item(s)` : null;
     return (
       <div className="Note">
-        <input  type="text"
+        {
+          this.props.loading ? 
+            <div></div> :
+            <div className="note-content">
+              <input  type="text"
                 className="note-title"
                 placeholder="Enter A Title..."
                 value={this.state.title}
                 name="title"
                 onChange={this.handleTitleChange} />
-        <ul className="ListItems">
-          {
-            incompletedItems.map((item, index) => 
-              <ListItem key={item.id} 
-                        index={index} 
-                        toggleComplete={this.toggleComplete} 
-                        handleItemChange={this.handleItemChange} 
-                        handleItemDelete={this.handleItemDelete} 
-                        {...item} /> )
-          }
-        </ul>
-        { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
-        <ul className="ListItems Completed">
-          {
-            completedItems.map((item, index) => 
-              <ListItem key={item.id} 
-                        index={index}
-                        toggleComplete={this.toggleComplete}
-                        handleItemChange={this.handleItemChange}
-                        handleItemDelete={this.handleItemDelete}
-                        {...item} /> )
-          }
-        </ul>
-        <NoteOptions  handleType={this.handleType} 
-                      deleteNote={this.deleteNote} 
-                      handleClose={this.handleClose} />
-        { this.props.error && <h2>{this.props.error}</h2> }
+              <ul className="ListItems">
+                {
+                  incompletedItems.map((item, index) => 
+                    <ListItem key={item.id} 
+                              index={index} 
+                              toggleComplete={this.toggleComplete} 
+                              handleItemChange={this.handleItemChange} 
+                              handleItemDelete={this.handleItemDelete} 
+                              {...item} /> )
+                }
+              </ul>
+              { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
+              <ul className="ListItems Completed">
+                {
+                  completedItems.map((item, index) => 
+                    <ListItem key={item.id} 
+                              index={index}
+                              toggleComplete={this.toggleComplete}
+                              handleItemChange={this.handleItemChange}
+                              handleItemDelete={this.handleItemDelete}
+                              {...item} /> )
+                }
+              </ul>
+              <NoteOptions  handleType={this.handleType} 
+                            deleteNote={this.deleteNote} 
+                            handleClose={this.handleClose} />
+              { this.props.error && <h2>{this.props.error}</h2> }
+            </div>
+              }
       </div>
     )
   }
 }
 
 export const mapStateToProps = (state) => ({
-  error: state.error
+  error: state.error,
+  loading: state.loading,
 })
 
 export const mapDispatchToProps = (dispatch) => ({
   hasError: (message) => dispatch(hasError(message)),
-  fetchAllNotes: (url) => dispatch(fetchAllNotes(url))
+  fetchAllNotes: (url) => dispatch(fetchAllNotes(url)),
+  isLoading: (value) => dispatch(isLoading(value)),
 })
 
 NoteForm.propTypes = {

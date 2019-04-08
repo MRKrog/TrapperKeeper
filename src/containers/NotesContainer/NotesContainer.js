@@ -16,8 +16,10 @@ export class NotesContainer extends Component {
   }
 
   render() {
+    let splashMessage = this.props.allNotes.length ? null : <h1 className="splash-message">Try Creating a New Note!</h1>
     return (
       <div className="NotesContainer">
+        { splashMessage }
         { this.props.allNotes && this.generateNotes() }
       </div>
     )

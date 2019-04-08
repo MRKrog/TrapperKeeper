@@ -89,7 +89,7 @@ export class NoteForm extends Component {
     try {
       const options = await fetchOptionsCreator(path , { title, list });
       await fetchData(url, options);
-      if (path === 'POST') this.props.fetchAllNotes(url);
+      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes');
       this.setState({toHomePage: true});
     } catch(error) {
       this.props.hasError(error.message);
@@ -177,20 +177,8 @@ export class NoteForm extends Component {
                 onChange={this.handleTitleChange} />
         <ul className="ListItems">
           {
-            incompletedItems.map((item, index) => 
-              <ListItem key={item.id} 
-                        index={index} 
-                        toggleComplete={this.toggleComplete} 
-                        handleItemChange={this.handleItemChange} 
-                        handleItemDelete={this.handleItemDelete} 
-                        {...item} /> )
-          }
-        </ul>
-        { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
-        <ul className="ListItems Completed">
-          {
-            completedItems.map((item, index) => 
-              <ListItem key={item.id} 
+            incompletedItems.map((item, index) =>
+              <ListItem key={item.id}
                         index={index}
                         toggleComplete={this.toggleComplete}
                         handleItemChange={this.handleItemChange}
@@ -198,8 +186,20 @@ export class NoteForm extends Component {
                         {...item} /> )
           }
         </ul>
-        <NoteOptions  handleType={this.handleType} 
-                      deleteNote={this.deleteNote} 
+        { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
+        <ul className="ListItems Completed">
+          {
+            completedItems.map((item, index) =>
+              <ListItem key={item.id}
+                        index={index}
+                        toggleComplete={this.toggleComplete}
+                        handleItemChange={this.handleItemChange}
+                        handleItemDelete={this.handleItemDelete}
+                        {...item} /> )
+          }
+        </ul>
+        <NoteOptions  handleType={this.handleType}
+                      deleteNote={this.deleteNote}
                       handleClose={this.handleClose} />
         { this.props.error && <h2>{this.props.error}</h2> }
       </div>

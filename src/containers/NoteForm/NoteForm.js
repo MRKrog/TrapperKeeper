@@ -9,7 +9,7 @@ import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 import { ListItem } from '../../components/ListItem/ListItem';
 import NoteOptions from '../../components/NoteOptions/NoteOptions';
-
+import ErrorPop from '../NotePop/NotePop';
 export class NoteForm extends Component {
   constructor(props) {
     super(props);
@@ -169,6 +169,7 @@ export class NoteForm extends Component {
     let completedMessage = completedItems.length ? `${completedItems.length} Completed Item(s)` : null;
     return (
       <div className="Note">
+        { this.props.error && <ErrorPop/>}
         <input  type="text"
                 className="note-title"
                 placeholder="Enter A Title..."
@@ -201,7 +202,6 @@ export class NoteForm extends Component {
         <NoteOptions  handleType={this.handleType} 
                       deleteNote={this.deleteNote} 
                       handleClose={this.handleClose} />
-        { this.props.error && <h2>{this.props.error}</h2> }
       </div>
     )
   }

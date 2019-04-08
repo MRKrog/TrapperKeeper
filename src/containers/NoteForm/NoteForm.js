@@ -79,9 +79,7 @@ export class NoteForm extends Component {
     const url = `http://localhost:3001/api/v1/${urlEnd}`;
     try {
       const options = await fetchOptionsCreator(path , { title, list });
-      console.log('options', options);
       await fetchData(url, options);
-      console.log('got past the second one');
       if (path === 'POST') this.props.fetchAllNotes(url);
       this.setState({toHomePage: true});
     } catch(error) {

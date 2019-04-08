@@ -77,7 +77,7 @@ describe('NoteForm', () => {
                 text: ""
               }],
         toHomePage: false,
-        errorPage: false,
+        displayError: false,
       })
     })
 
@@ -88,20 +88,11 @@ describe('NoteForm', () => {
       expect(instance.findNote).toHaveBeenCalledWith(noteId)
     })
 
-    it('should fire handleEnter when handleKeydown is invoked with the code is Enter', () => {
-      const instance = wrapper.instance()
-      const mockEvent = { code: 'Enter' }
-      spyOn(instance, 'handleEnter')
-      instance.handleKeydown(mockEvent)
-      expect(instance.handleEnter).toHaveBeenCalledWith(mockEvent)
-    })
-
     it('should fire handleEscape when handleKeydown is invoked with the code is Escape', () => {
-      const mockEvent = { code: 'Escape' }
-      const instance = wrapper.instance()
-      spyOn(instance, 'handleEscape')
-      instance.handleKeydown(mockEvent)
-      expect(instance.handleEscape).toHaveBeenCalled()
+      const mockEvent = { code: 'Escape' };
+      const instance = wrapper.instance();
+      instance.handleKeydown(mockEvent);
+      expect(wrapper.state('toHomePage')).toEqual(true);
     })
 
     it('should invoke fetchData and change the state to the mockData when findNote() is called', async () => {
@@ -114,91 +105,74 @@ describe('NoteForm', () => {
       expect(wrapper.state('list')).toEqual([{ id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false }])
     })
 
-    it('should change state of toHomePage to true when handleEscape is invoked', () => {
-      wrapper.instance().handleEscape()
-      expect(wrapper.state('toHomePage')).toEqual(true)
-    })
-
     it('should throw an error if fetchData is rejected in when the findNote() method is invoked and change its state', async () => {
       fetchData.mockImplementationOnce(() => Promise.reject(new Error('Note was not found')))
 
       await wrapper.instance().findNote()
       expect(mockHasError).toHaveBeenCalledWith('Note was not found')
-      expect(wrapper.state('errorPage')).toEqual(true)
+      expect(wrapper.state('displayError')).toEqual(true)
     })
 
-    it('should call handlePut when handleType is invoked and has prop type of existing-note', () => {
+    it('should call handlePostandPut when handleType is invoked and has prop type of existing-note', () => {
       const instance = wrapper.instance();
       const fakeEvent = { preventDefault: () => {}};
-      jest.spyOn(instance, 'handlePut')
+      jest.spyOn(instance, 'handlePostandPut')
       wrapper.instance().handleType(fakeEvent)
-      expect(instance.handlePut).toHaveBeenCalled()
+      expect(instance.handlePostandPut).toHaveBeenCalledWith('existing-note')
     })
 
-    it('should call handlePost when handleType is invoked and has prop type of new-note', () => {
+    it('should call handlePostandPut when handleType is invoked and has prop type of new-note', () => {
       const instance = wrapper.instance()
       const fakeEvent = { preventDefault: () => {} }
-      jest.spyOn(instance, 'handlePost');
+      jest.spyOn(instance, 'handlePostandPut');
       wrapper.setProps({ type: "new-note" })
       instance.handleType(fakeEvent)
-      expect(instance.handlePost).toHaveBeenCalled()
+      expect(instance.handlePostandPut).toHaveBeenCalledWith('new-note');
     })
 
     it('should call fetchOptionsCreator upon invoking handle post and return POST and title and list object', async () => {
       const title = 'Jake ToDo';
       const list = [{ id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false }]
 
-      await wrapper.instance().handlePost()
+      await wrapper.instance().handlePostandPut('new-note');
       expect(fetchOptionsCreator).toHaveBeenCalledWith('POST', { title, list })
     })
 
-    it('shoud call fetchData with the correct url and options', async () => {
+    it('shoud call fetchData when handlePostandPut is invoked with existing-note with the correct url and options', async () => {
+      const mockUrl = 'http://localhost:3001/api/v1/notes/O6oYExG7Q';
+      await wrapper.instance().handlePostandPut('existing-note')
+      const mockOptions = await fetchOptionsCreator('PUT')
+      expect(fetchData).toHaveBeenCalledWith(mockUrl, mockOptions)
+    })
+
+    it('shoud call fetchData when handlePostandPut is invoked with new-note with the correct url and options', async () => {
       const mockUrl = 'http://localhost:3001/api/v1/notes';
-      await wrapper.instance().handlePost()
+      await wrapper.instance().handlePostandPut('new-note')
       const mockOptions = await fetchOptionsCreator('POST')
       expect(fetchData).toHaveBeenCalledWith(mockUrl, mockOptions)
     })
 
-    it('should call fetchAllNotes with the mockUrl when handlePost is invoked and change the state of toHomePage', async () => {
+    it('should call fetchAllNotes with the mockUrl when handlePostandPut is invoked and change the state of toHomePage', async () => {
       const mockUrl = 'http://localhost:3001/api/v1/notes';
-      await wrapper.instance().handlePost()
+      await wrapper.instance().handlePostandPut('new-note');
 
       expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
       expect(wrapper.state('toHomePage')).toEqual(true)
     })
 
-    it('should call hasError when handlePost is invoked with a bad request', async () => {
+    it('should call hasError when handlePostandPut is invoked with a bad request', async () => {
       fetchData.mockImplementationOnce(() => Promise.reject(new Error('Bad Request Yo')))
 
-      await wrapper.instance().handlePost()
+      await wrapper.instance().handlePostandPut()
       expect(mockHasError).toHaveBeenCalledWith('Bad Request Yo')
     })
 
-    it('should call fetchOptionsCreator with the correct params when handPut is invoked', async () => {
-      const mockUrl = "http://localhost:3001/api/v1/notes/O6oYExG7Q";
+    it('should call fetchOptionsCreator with the correct params when handlePostandPut is invoked', async () => {
       const title = 'Jake ToDo';
       const list = [{ id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: false }];
 
-      await wrapper.instance().handlePut()
+      await wrapper.instance().handlePostandPut()
       expect(fetchOptionsCreator).toHaveBeenCalledWith('PUT', { title, list })
-    })
-
-    it('should call fetchData with the correct URL when handlPut is invoked', async () => {
-      const mockUrl = "http://localhost:3001/api/v1/notes/O6oYExG7Q";
-      await wrapper.instance().handlePut()
-      expect(fetchData).toHaveBeenCalledWith(mockUrl)
-    })
-
-    it('should change the state of toHomePage when handlePut is invoked', async () => {
-      await wrapper.instance().handlePut()
-      expect(wrapper.state('toHomePage')).toEqual(true)
-    })
-
-    it('should call hasError when fetchData fails when handlePut is invoked', async () => {
-      fetchData.mockImplementationOnce(() => Promise.reject(new Error('Another Bad One yo!')))
-      await wrapper.instance().handlePut()
-
-      expect(mockHasError).toHaveBeenCalledWith('Another Bad One yo!')
     })
 
     it('should change state of title input when handleTitleChange is invoked', () => {
@@ -303,7 +277,7 @@ describe('NoteForm', () => {
       expect(wrapper.state('list')).toEqual(updatedItem)
     })
 
-    it('should on handleSeperate return an object with complete and uncompleted items', () => {
+    it('should on handleSeparate return an object with complete and uncompleted items', () => {
       wrapper.setState({
         list: [
           { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
@@ -311,18 +285,14 @@ describe('NoteForm', () => {
           { id: "1234552f4", text: 'Javascript is cool', isComplete: false },
         ]
       })
-      const returnSeperate = {
-        completed: {
-          items: [ { id: '55ogax554', text: 'Do More CsS', isComplete: true } ]
-        },
-        uncompleted: {
-          items: [
+      const returnSeparate = {
+        completedItems: [ { id: '55ogax554', text: 'Do More CsS', isComplete: true } ],
+        incompletedItems: [
             { id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: false },
             { id: '1234552f4', text: 'Javascript is cool', isComplete: false } ]
-        }
       }
       const instance = wrapper.instance()
-      expect(instance.handleSeperate()).toEqual(returnSeperate)
+      expect(instance.handleSeparate()).toEqual(returnSeparate)
     })
 
     it('should on handleClose call hasError with an empty string', () => {

@@ -44,8 +44,7 @@ export class NoteForm extends Component {
   }
 
   handleKeydown = (event) => {
-    if ( event.code !== 'Escape' ) return null;
-    this.setState({toHomePage: true});
+    if ( event.code === 'Escape' ) this.setState({toHomePage: true});
   }
 
   findNote = async (noteId) => {
@@ -59,11 +58,14 @@ export class NoteForm extends Component {
         list: [...list]
       })
     } catch(error) {
-      error.message === 'Note was not found' && this.setState({displayError: true})
+      if (error.message === 'Note was not found') {
+        this.props.hasError(error.message);
+        this.setState({displayError: true})
+      }
     }
   }
 
-  handleSeperate = () => {
+  handleSeparate = () => {
     const { list } = this.state;
     let completedItems = list.filter(item => item.isComplete);
     let incompletedItems = list.filter(item => !item.isComplete);
@@ -109,7 +111,7 @@ export class NoteForm extends Component {
 
   generateNewListItem = (e, foundItem) => {
     const { value } = e.target;
-    const items = this.handleSeperate();
+    const items = this.handleSeparate();
     const lastItem = items.incompletedItems.pop();
     if (value.length === 1 && foundItem.id === lastItem.id) this.addItem();
   }
@@ -159,8 +161,8 @@ export class NoteForm extends Component {
   }
 
   render() {
-    const seperatedList = this.handleSeperate();
-    const { completedItems, incompletedItems } = seperatedList;
+    const separatedList = this.handleSeparate();
+    const { completedItems, incompletedItems } = separatedList;
     const { toHomePage, errorPage } = this.state;
     if (toHomePage) return <Redirect to='/' />;
     if (errorPage) return <Redirect to='/404' />;

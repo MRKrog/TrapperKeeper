@@ -15,173 +15,136 @@ export class NoteForm extends Component {
     super(props);
     this.state = {
       title: '',
-      list: [{
-              id: shortid.generate(),
-              isComplete: false,
-              text: ""
-            }],
       toHomePage: false,
-      errorPage: false,
+      displayError: false,
+      list: [
+        {
+          id: shortid.generate(),
+          isComplete: false,
+          text: '',
+        },
+      ]
     }
   }
 
-  //not tested ( eventListener )
-  componentDidMount = () => {
-    if(this.props.noteId) {
-      this.findNote(this.props.noteId);
-    }
+  componentDidMount = async () => {
+    this.props.noteId && await this.findNote(this.props.noteId);
     document.addEventListener('keydown', this.handleKeydown);
   }
 
-  //not tested
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
 
   handleKeydown = (event) => {
-    if ( event.code === 'Enter' ) this.handleEnter(event);
-    if ( event.code === 'Escape' ) this.handleEscape();
-  }
-
-  //not tested
-  handleEnter = (event) => {
-    if ( event.path[0].localName !== 'input' ) return null;
-
-    // const { id, value } =  event.path[0];
-    // const { list } = this.state;
-    // const matchItem = list.find(item => item.id === id);
-    // const lastItem = list.filter(item => item.isComplete === false).pop();
-    // if ( value.length > 0 && matchItem === lastItem ) this.addItem();
-  }
-
-  handleEscape = () => {
-    this.setState({ toHomePage: true})
+    if ( event.code !== 'Escape' ) return null;
+    this.setState({toHomePage: true});
   }
 
   findNote = async (noteId) => {
-    const url = `http://localhost:3001/api/v1/notes/${noteId}`
+    const url = `http://localhost:3001/api/v1/notes/${noteId}`;
     try {
-      const response = await fetchData(url)
+      const response = await fetchData(url);
+      const { id, title, list } = response;
       this.setState({
-        id: response.id,
-        title: response.title,
-        list: [...response.list]
+        id,
+        title,
+        list: [...list]
       })
-    } catch (error) {
-      this.props.hasError(error.message)
-      this.setState({errorPage: true})
+    } catch(error) {
+      error.message === 'Note was not found' && this.setState({displayError: true})
+    }
+  }
+
+  handleSeperate = () => {
+    const { list } = this.state;
+    let completedItems = list.filter(item => item.isComplete);
+    let incompletedItems = list.filter(item => !item.isComplete);
+    return {
+      completedItems,
+      incompletedItems
     }
   }
 
   handleType = (e) => {
-    e.preventDefault()
-    if(this.props.type === "new-note") {
-      this.handlePost();
-    } else if(this.props.type === "existing-note") {
-      this.handlePut();
-    }
+    e.preventDefault();
+    const { type } = this.props;
+    if (type === "new-note" || type === "existing-note") this.handlePostandPut(type)
   }
 
-  handlePost = async () => {
+  handlePostandPut = async (type) => {
     const { title, list } = this.state;
-    const url = 'http://localhost:3001/api/v1/notes';
+    let path = type === 'new-note' ? 'POST' : 'PUT';
+    let urlEnd = type === 'new-note' ? 'notes' : `notes/${this.props.id}`;
+    const url = `http://localhost:3001/api/v1/${urlEnd}`;
     try {
-      const options = await fetchOptionsCreator('POST', { title, list })
-      await fetchData(url, options)
-      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
-      this.setState({ toHomePage: true })
-    } catch (error) {
-      this.props.hasError(error.message)
+      const options = await fetchOptionsCreator(path , { title, list });
+      await fetchData(url, options);
+      if (path === 'POST') this.props.fetchAllNotes(url);
+      this.setState({toHomePage: true});
+    } catch(error) {
+      this.props.hasError(error.message);
     }
   }
 
-  handlePut = async () => {
-    const { title, list } = this.state;
-    const url = `http://localhost:3001/api/v1/notes/${this.props.id}`;
-    try {
-      const options = await fetchOptionsCreator('PUT', { title, list })
-      await fetchData(url, options)
-      // this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
-      this.setState({ toHomePage: true })
-    } catch (error) {
-      this.props.hasError(error.message)
-    }
-  }
-
-  handleTitleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+  handleTitleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({[name]: value});
   }
 
   handleItemChange = (e, id) => {
-    e.preventDefault();
-    const foundItem = this.state.list.find(item => item.id === id);
+    const { list } = this.state;
+    const foundItem = list.find(item => item.id === id);
     foundItem.text = e.target.value;
-    this.setState({ list: this.state.list });
+    this.setState({ list });
     this.generateNewListItem(e, foundItem);
   }
 
   generateNewListItem = (e, foundItem) => {
     const { value } = e.target;
-    const lastItem = this.state.list.filter(item => item.isComplete === false).pop();
+    const items = this.handleSeperate();
+    const lastItem = items.incompletedItems.pop();
     if (value.length === 1 && foundItem.id === lastItem.id) this.addItem();
   }
 
   handleItemDelete = (e, id) => {
     e.preventDefault();
-    let foundIndex = this.state.list.findIndex(item => item.id == id)
-    this.state.list.splice(foundIndex, 1)
-    this.setState({ list: this.state.list })
+    const { list } = this.state;
+    const foundIndex = list.findIndex(item => item.id === id);
+    list.splice(foundIndex, 1);
+    this.setState({list});
   }
 
   addItem = () => {
-    this.setState({ list: [...this.state.list, {
-        id: shortid.generate(),
-        isComplete: false,
-        text: ""
-       }
-      ]
-     })
+    let defaultItem = {
+      id: shortid.generate(),
+      isComplete: false,
+      text: ''
+    };
+    this.setState({list: [...this.state.list, defaultItem]});
   }
 
   deleteNote = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:3001/api/v1/notes/${this.props.id}`;
+    const url = `http://localhost:3001/api/v1/notes`;
     try {
       const options = await fetchOptionsCreator('DELETE', {})
-      await fetchData(url, options)
-      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
-      this.setState({ toHomePage: true })
+      await fetchData(`${url}/${this.props.id}`, options);
+      this.props.fetchAllNotes(url);
+      this.setState({ toHomePage: true });
     } catch (error) {
       this.props.hasError(error.message);
-      if(error.message === 'Note not found'){this.props.hasError('note can not be deleted')}
+      if(error.message === 'Note not found') {this.props.hasError('note can not be deleted')};
     }
   }
 
   toggleComplete = (id) => {
-    const updatedList = this.state.list.map(item => {
-      if(id === item.id) {
-        item.isComplete = !item.isComplete
-      }
-      return item
+    const { list } = this.state;
+    const updatedList = list.map(item => {
+      if (id === item.id) item.isComplete = !item.isComplete;
+      return item;
     });
-    this.setState({ list: updatedList })
-  }
-
-  handleSeperate = () => {
-    const { list } = this.state
-    let completed = list.filter(item => item.isComplete)
-    let uncompleted = list.filter(item => !item.isComplete)
-    return {
-      completed: {
-        items: completed,
-      },
-      uncompleted: {
-        items: uncompleted,
-      }
-    }
+    this.setState({list: updatedList});
   }
 
   handleClose = () => {
@@ -189,54 +152,47 @@ export class NoteForm extends Component {
   }
 
   render() {
-    const { toHomePage, errorPage } = this.state
-    if(toHomePage === true){
-      return <Redirect to='/' />
-    } else if(errorPage === true) {
-      return <Redirect to='/404' />
-    }
-    let seperatedList = this.handleSeperate();
+    const seperatedList = this.handleSeperate();
+    const { completedItems, incompletedItems } = seperatedList;
+    const { toHomePage, errorPage } = this.state;
+    if (toHomePage) return <Redirect to='/' />;
+    if (errorPage) return <Redirect to='/404' />;
+    let completedMessage = completedItems.length ? `${completedItems.length} Completed Item(s)` : null;
     return (
       <div className="Note">
-        <section className="Note-Content">
-          <div className="Note-Form-Container">
-            <div className="Note-Form">
-              <input type="text"
-                     onChange={this.handleTitleChange}
-                     placeholder="Title"
-                     value={this.state.title}
-                     name="title"
-                     className="Note-Title"
-                     />
-              <ul className="ListItems">
-                {
-                  seperatedList.uncompleted.items.map((item, index) => {
-                    return (
-                      <ListItem key={item.id} {...item} index={index} toggleComplete={this.toggleComplete} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
-                    )
-                  })
-                }
-              </ul>
-              {
-                seperatedList.completed.items.length > 0 &&
-                <div className="Completed-Message">
-                  <p>{seperatedList.completed.items.length} Completed Items</p>
-                </div>
-              }
-              <ul className="ListItems Completed">
-                {
-                  seperatedList.completed.items.map((item, index) => {
-                    return (
-                      <ListItem key={item.id} {...item} index={index} toggleComplete={this.toggleComplete} handleItemChange={this.handleItemChange} handleItemDelete={this.handleItemDelete} />
-                    )
-                  })
-                }
-              </ul>
-              <NoteOptions handleType={this.handleType} deleteNote={this.deleteNote} handleClose={this.handleClose} />
-              <section className="Note-Error"><h2>{this.props.error && this.props.error}</h2></section>
-            </div>
-          </div>
-        </section>
+        <input  type="text"
+                className="note-title"
+                placeholder="Enter A Title..."
+                value={this.state.title}
+                name="title"
+                onChange={this.handleTitleChange} />
+        <ul className="ListItems">
+          {
+            incompletedItems.map((item, index) => 
+              <ListItem key={item.id} 
+                        index={index} 
+                        toggleComplete={this.toggleComplete} 
+                        handleItemChange={this.handleItemChange} 
+                        handleItemDelete={this.handleItemDelete} 
+                        {...item} /> )
+          }
+        </ul>
+        { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
+        <ul className="ListItems Completed">
+          {
+            completedItems.map((item, index) => 
+              <ListItem key={item.id} 
+                        index={index}
+                        toggleComplete={this.toggleComplete}
+                        handleItemChange={this.handleItemChange}
+                        handleItemDelete={this.handleItemDelete}
+                        {...item} /> )
+          }
+        </ul>
+        <NoteOptions  handleType={this.handleType} 
+                      deleteNote={this.deleteNote} 
+                      handleClose={this.handleClose} />
+        { this.props.error && <h2>{this.props.error}</h2> }
       </div>
     )
   }

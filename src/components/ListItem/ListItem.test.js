@@ -19,14 +19,14 @@ describe('ListItem', () => {
 
   beforeEach(() => {
     wrapper = shallow(
-      <ListItem 
-        item={mockItem} 
+      <ListItem
+        item={mockItem}
         id={mockId}
         isComplete={mockisComplete}
-        index={mockIndex} 
-        toggleComplete={mockToggleComplete} 
-        handleItemChange={mockHandleItemChange} 
-        handleItemDelete={mockHandleItemDelete} 
+        index={mockIndex}
+        toggleComplete={mockToggleComplete}
+        handleItemChange={mockHandleItemChange}
+        handleItemDelete={mockHandleItemDelete}
       />)
   })
 

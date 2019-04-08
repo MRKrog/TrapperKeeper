@@ -38,7 +38,7 @@ export class NoteForm extends Component {
 
   handleKeydown = (event) => {
     if ( event.code !== 'Escape' ) return null;
-    this.setState({redirect: true});
+    this.setState({toHomePage: true});
   }
 
   findNote = async (noteId) => {
@@ -212,6 +212,7 @@ NoteForm.propTypes = {
   list: PropTypes.array,
   toHomePage: PropTypes.bool,
   error: PropTypes.string,
+  fetchAllNotes: PropTypes.func,
   hasError: PropTypes.func
 }
 

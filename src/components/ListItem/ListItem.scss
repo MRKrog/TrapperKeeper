@@ -44,8 +44,7 @@ ul.ListItems {
       }
 
       .delete-button {
-        opacity: 0;
-        pointer-events: none;
+        display: none
       }
     }
 

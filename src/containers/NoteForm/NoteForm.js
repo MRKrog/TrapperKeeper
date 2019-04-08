@@ -206,7 +206,8 @@ export class NoteForm extends Component {
               </ul>
               <NoteOptions  handleType={this.handleType} 
                             deleteNote={this.deleteNote} 
-                            handleClose={this.handleClose} />
+                            handleClose={this.handleClose}
+                            type={this.props.type} />
               { this.props.error && <h2>{this.props.error}</h2> }
             </div>
               }

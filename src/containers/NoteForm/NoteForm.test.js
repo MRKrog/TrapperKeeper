@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { NoteForm, mapStateToProps, mapDispatchToProps } from './NoteForm';
 import NoteOptions from '../../components/NoteOptions/NoteOptions';
 import { ListItem } from '../../components/ListItem/ListItem';
+import { hasError } from '../../actions';
 // import { render } from 'react-dom';
 // jest.mock('react-dom');
 
@@ -12,7 +13,6 @@ jest.mock('../../utility/fetchData')
 import { fetchOptionsCreator } from '../../utility/fetchOptionsCreator';
 jest.mock('../../utility/fetchOptionsCreator')
 
-import { hasError } from '../../actions';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes';
 jest.mock('../../thunks/fetchAllNotes');
 
@@ -81,11 +81,27 @@ describe('NoteForm', () => {
       })
     })
 
-    it('should invole findNote() if has a prop of noteId on componentDidMount', () => {
+    it('should invoke findNote() if has a prop of noteId on componentDidMount', () => {
       const instance = wrapper.instance()
       jest.spyOn(instance, 'findNote')
       wrapper.instance().componentDidMount();
       expect(instance.findNote).toHaveBeenCalledWith(noteId)
+    })
+
+    it('should fire handleEnter when handleKeydown is invoked with the code is Enter', () => {
+      const instance = wrapper.instance()
+      const mockEvent = { code: 'Enter' }
+      spyOn(instance, 'handleEnter')
+      instance.handleKeydown(mockEvent)
+      expect(instance.handleEnter).toHaveBeenCalledWith(mockEvent)
+    })
+
+    it('should fire handleEscape when handleKeydown is invoked with the code is Escape', () => {
+      const mockEvent = { code: 'Escape' }
+      const instance = wrapper.instance()
+      spyOn(instance, 'handleEscape')
+      instance.handleKeydown(mockEvent)
+      expect(instance.handleEscape).toHaveBeenCalled()
     })
 
     it('should invoke fetchData and change the state to the mockData when findNote() is called', async () => {
@@ -326,42 +342,55 @@ describe('NoteForm', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
-    it.skip('', () => {
-      // const result = wrapper.instance().getListItems();
-      // expect(result.length).toBe(2);
-      //
-      //
-      // wrapper.instance().updateNoteItems(mockNoteItems, 1);
-      // expect(wrapper.state('noteItems')).toEqual(mockNoteItems);
-      // expect(wrapper.state('currentFocus')).toEqual(1);
-
-      //
-      // const map = {};
-      // window.addEventListener = jest.fn((event, cb) => {
-      //   map[event] = cb;
-      // });
-    })
-
-
-
   })
-
 
   describe('mapStateToProps', () => {
 
-    it('should', () => {
-
+    it('should return an object with the hasError message', () => {
+      const mockState = {
+        error: 'This is an Error Message',
+        fitler: []
+      }
+      const expected = {
+        error: 'This is an Error Message',
+      }
+      const mappedProps = mapStateToProps(mockState);
+      expect(mappedProps).toEqual(expected)
     })
 
   })
 
 
   describe('mapDispatchToProps', () => {
-    it('should', () => {
 
+    it('should call dispatch with an hasError action when hasError is called', () => {
+      // Setup
+      const mockMessage = 'This is an error message';
+      const mockDispatch = jest.fn();
+      const actionToDispatch = hasError(mockMessage)
+
+      // Execution
+      const mappedProps = mapDispatchToProps(mockDispatch)
+      mappedProps.hasError(mockMessage)
+
+      // Expectation
+      expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
     })
+
+    it('should call dispatch with an fetchAllNotes action when fetchAllNotes is called', () => {
+      // Setup
+      const mockUrl = 'http://google.com'
+      const mockDispatch = jest.fn();
+      const actionToDispatch = fetchAllNotes(mockUrl)
+
+      // Execution
+      const mappedProps = mapDispatchToProps(mockDispatch)
+      mappedProps.fetchAllNotes(actionToDispatch)
+
+      // Expectaion
+      expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch)
+    })
+
   })
-
-
 
 })

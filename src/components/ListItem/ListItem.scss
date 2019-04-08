@@ -15,7 +15,7 @@ ul.ListItems {
     transition: all .3 ease;
 
     &:last-child {
-      padding-bottom: 7px;
+
       &:after {
         content: '';
         position: absolute;

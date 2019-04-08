@@ -25,34 +25,33 @@ export class NoteForm extends Component {
     }
   }
 
+  //not tested ( eventListener )
   componentDidMount = () => {
     if(this.props.noteId) {
       this.findNote(this.props.noteId);
     }
     document.addEventListener('keydown', this.handleKeydown);
   }
-  //note tested
 
+  //not tested
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
 
-  //note tested
   handleKeydown = (event) => {
     if ( event.code === 'Enter' ) this.handleEnter(event);
     if ( event.code === 'Escape' ) this.handleEscape();
   }
 
-  //note tested
+  //not tested
   handleEnter = (event) => {
     if ( event.path[0].localName !== 'input' ) return null;
 
-    const { id, value } =  event.path[0];
-    const { list } = this.state;
-    const matchItem = list.find(item => item.id === id);
-    const lastItem = list.filter(item => item.isComplete === false).pop();
-
-    if ( value.length > 0 && matchItem === lastItem ) this.addItem();
+    // const { id, value } =  event.path[0];
+    // const { list } = this.state;
+    // const matchItem = list.find(item => item.id === id);
+    // const lastItem = list.filter(item => item.isComplete === false).pop();
+    // if ( value.length > 0 && matchItem === lastItem ) this.addItem();
   }
 
   handleEscape = () => {
@@ -102,6 +101,7 @@ export class NoteForm extends Component {
     try {
       const options = await fetchOptionsCreator('PUT', { title, list })
       await fetchData(url, options)
+      // this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
       this.setState({ toHomePage: true })
     } catch (error) {
       this.props.hasError(error.message)

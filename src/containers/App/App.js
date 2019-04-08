@@ -21,8 +21,8 @@ export class App extends Component {
       <div className="App">
         <Header />
         <main className="Content-Container">
-          <Switch>
-            <Route exact path="/" render={() => {
+        <Switch>
+            <Route path="/" exact render={() => {
               return <NotesContainer />
             }} />
             <Route path="/notes/:id" render={({match}) => {

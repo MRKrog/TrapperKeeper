@@ -91,7 +91,7 @@ export class NoteForm extends Component {
     try {
       const options = await fetchOptionsCreator(path , { title, list });
       await fetchData(url, options);
-      if (path === 'POST') this.props.fetchAllNotes(url);
+      this.props.fetchAllNotes('http://localhost:3001/api/v1/notes');
       this.setState({toHomePage: true});
     } catch(error) {
       this.props.hasError(error.message);

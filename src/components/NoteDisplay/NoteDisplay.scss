@@ -1,0 +1,48 @@
+.NoteDisplay {
+  display: block;
+  pointer-events: none;
+
+  h3 {
+    color: #e0e0e0;
+    margin: 0;
+    text-align: left;
+  }
+
+  ul {
+    text-align: left;
+    padding: 0;
+    margin: 0;
+
+    li {
+      color: #e0e0e0;
+      list-style-type: none;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      line-height: 1.2;
+
+      &:hover {
+
+      }
+
+      .checkBox {
+        opacity: .1;
+        img {
+          max-width: 75%;
+        }
+      }
+
+    }
+
+    li.completed {
+
+    }
+
+    li.incompelete {
+
+    }
+
+  }
+
+
+}

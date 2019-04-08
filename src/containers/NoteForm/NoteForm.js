@@ -30,12 +30,12 @@ export class NoteForm extends Component {
   componentDidMount = async () => {
     this.props.noteId && await this.findNote(this.props.noteId);
     document.addEventListener('keydown', this.handleKeydown);
-    document.addEventListener('click', this.handleClick);
+    document.addEventListener('mousedown', this.handleClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
-    document.removeEventListener('click', this.handleClick);
+    document.removeEventListener('mousedown', this.handleClick);
   }
 
   handleClick = (event) => {

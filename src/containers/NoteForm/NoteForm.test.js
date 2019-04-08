@@ -312,6 +312,10 @@ describe('NoteForm', () => {
       expect(wrapper).toMatchSnapshot()
     })
 
+    it('should call upon props.hasError', () => {
+      wrapper.instance().handleClose();
+      expect(mockHasError).toHaveBeenCalled();
+    })
   })
 
   describe('mapStateToProps', () => {

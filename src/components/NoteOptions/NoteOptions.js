@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-
 const NoteOptions = ({ handleType, deleteNote, handleClose }) => {
 
   return (
@@ -20,5 +19,10 @@ const NoteOptions = ({ handleType, deleteNote, handleClose }) => {
   )
 }
 
+NoteOptions.propTypes = {
+  handleType: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
+}
 
 export default NoteOptions;

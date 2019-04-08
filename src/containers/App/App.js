@@ -8,6 +8,7 @@ import NoteForm from '../NoteForm/NoteForm';
 import PropTypes from 'prop-types'
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 import { ErrorPage } from '../../components/ErrorPage/ErrorPage'
+
 export class App extends Component {
 
   componentDidMount() {

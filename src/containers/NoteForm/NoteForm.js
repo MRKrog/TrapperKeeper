@@ -9,7 +9,8 @@ import { fetchData } from '../../utility/fetchData';
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
 import { ListItem } from '../../components/ListItem/ListItem';
 import NoteOptions from '../../components/NoteOptions/NoteOptions';
-import ErrorPop from '../NotePop/NotePop';
+import ErrorPop from '../ErrorPop/ErrorPop';
+
 export class NoteForm extends Component {
   constructor(props) {
     super(props);

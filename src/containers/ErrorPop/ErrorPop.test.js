@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorPop, mapStateToProps } from './NotePop';
+import { ErrorPop, mapStateToProps } from './ErrorPop';
 import { shallow } from 'enzyme';
 
 describe('ErrorPop', () => {

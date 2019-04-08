@@ -22,18 +22,18 @@ export class NoteForm extends Component {
             }],
       toHomePage: false,
       errorPage: false,
-      redirect: false,
-
     }
   }
-  
-  componentDidMount = async () => {
+
+  //not tested ( eventListener )
+  componentDidMount = () => {
     if(this.props.noteId) {
-      await this.findNote(this.props.noteId);
+      this.findNote(this.props.noteId);
     }
     document.addEventListener('keydown', this.handleKeydown);
   }
 
+  //not tested
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
   }
@@ -43,19 +43,19 @@ export class NoteForm extends Component {
     if ( event.code === 'Escape' ) this.handleEscape();
   }
 
+  //not tested
   handleEnter = (event) => {
     if ( event.path[0].localName !== 'input' ) return null;
-    
-    const { id, value } =  event.path[0];
-    const { list } = this.state;
-    const matchItem = list.find(item => item.id === id);
-    const lastItem = list.filter(item => item.isComplete === false).pop();
-    
-    if ( value.length > 0 && matchItem === lastItem ) this.addItem();
+
+    // const { id, value } =  event.path[0];
+    // const { list } = this.state;
+    // const matchItem = list.find(item => item.id === id);
+    // const lastItem = list.filter(item => item.isComplete === false).pop();
+    // if ( value.length > 0 && matchItem === lastItem ) this.addItem();
   }
 
   handleEscape = () => {
-    this.setState({redirect: true})
+    this.setState({ toHomePage: true})
   }
 
   findNote = async (noteId) => {
@@ -68,8 +68,8 @@ export class NoteForm extends Component {
         list: [...response.list]
       })
     } catch (error) {
-      console.log(error.message);
-      if(error.message === 'Note was not found'){this.setState({errorPage: true})}
+      this.props.hasError(error.message)
+      this.setState({errorPage: true})
     }
   }
 
@@ -101,6 +101,7 @@ export class NoteForm extends Component {
     try {
       const options = await fetchOptionsCreator('PUT', { title, list })
       await fetchData(url, options)
+      // this.props.fetchAllNotes('http://localhost:3001/api/v1/notes')
       this.setState({ toHomePage: true })
     } catch (error) {
       this.props.hasError(error.message)
@@ -114,7 +115,7 @@ export class NoteForm extends Component {
     });
   }
 
-  handleItemChange = (e, id, index) => {
+  handleItemChange = (e, id) => {
     e.preventDefault();
     const foundItem = this.state.list.find(item => item.id === id);
     foundItem.text = e.target.value;
@@ -125,7 +126,6 @@ export class NoteForm extends Component {
   generateNewListItem = (e, foundItem) => {
     const { value } = e.target;
     const lastItem = this.state.list.filter(item => item.isComplete === false).pop();
-
     if (value.length === 1 && foundItem.id === lastItem.id) this.addItem();
   }
 
@@ -190,7 +190,6 @@ export class NoteForm extends Component {
 
   render() {
     const { toHomePage, errorPage } = this.state
-    if (this.state.redirect) return <Redirect to='/' />;
     if(toHomePage === true){
       return <Redirect to='/' />
     } else if(errorPage === true) {
@@ -257,6 +256,7 @@ NoteForm.propTypes = {
   list: PropTypes.array,
   toHomePage: PropTypes.bool,
   error: PropTypes.string,
+  fetchAllNotes: PropTypes.func,
   hasError: PropTypes.func
 }
 

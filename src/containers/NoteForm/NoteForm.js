@@ -30,10 +30,17 @@ export class NoteForm extends Component {
   componentDidMount = async () => {
     this.props.noteId && await this.findNote(this.props.noteId);
     document.addEventListener('keydown', this.handleKeydown);
+    document.addEventListener('click', this.handleClick);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeydown);
+    document.removeEventListener('click', this.handleClick);
+  }
+
+  handleClick = (event) => {
+    const noteClass = event.path.filter(road => road.className === 'Note');
+    if (!noteClass.length) this.setState({toHomePage: true});
   }
 
   handleKeydown = (event) => {

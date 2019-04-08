@@ -36,4 +36,18 @@ describe('fetchAllNotes', () => {
 
     expect(mockDispatch).toHaveBeenCalledWith(fetchNotes(mockAllNotes))
   })
+
+  it('should dispatch hasError with the message if the response is not ok', async () => {
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+      ok: false,
+      statusText: 'Something went wrong'
+    }))
+
+    const thunk = fetchAllNotes(mockUrl);
+
+    await thunk(mockDispatch);
+
+    expect(mockDispatch).toHaveBeenCalledWith(hasError('Something went wrong'));
+  })
+
 })

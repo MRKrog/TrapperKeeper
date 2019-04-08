@@ -16,9 +16,13 @@ export class NotesContainer extends Component {
   }
 
   render() {
-    let splashMessage = this.props.allNotes.length ? null : <h1 className="splash-message">Try Creating a New Note!</h1>
+    const { allNotes } = this.props;
+    const loader = this.props.loading ? <div></div> : null
+    let splashMessage = null;
+    if (!loader && !allNotes.length) splashMessage = <h1 className="splash-message">Try Creating a New Note!</h1>;
     return (
       <div className="NotesContainer">
+        { loader }
         { splashMessage }
         { this.props.allNotes && this.generateNotes() }
       </div>
@@ -28,6 +32,7 @@ export class NotesContainer extends Component {
 
 export const mapStateToProps = (state) => ({
   allNotes: state.allNotes,
+  loading: state.loading
 })
 
 NotesContainer.propTypes = {

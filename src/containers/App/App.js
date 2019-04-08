@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { hasError } from '../../actions/index';
 import { Header } from '../../components/Header/Header';
@@ -21,16 +21,18 @@ export class App extends Component {
       <div className="App">
         <Header />
         <main className="Content-Container">
-          <Route path="/" render={() => {
-            return <NotesContainer />
-          }} />
-          <Route path="/notes/:id" render={({match}) => {
-            const { id } = match.params;
-            const currentNote = this.props.allNotes.find(note => note.id == id)
-            return <NoteForm type="existing-note" noteId={id} {...currentNote}/>
-          }} />
-          <Route path="/new-note" render={ () => <NoteForm type="new-note"/> } />
-          <Route path="/404" render={ () => <ErrorPage/> } />
+          <Switch>
+            <Route exact path="/" render={() => {
+              return <NotesContainer />
+            }} />
+            <Route path="/notes/:id" render={({match}) => {
+              const { id } = match.params;
+              const currentNote = this.props.allNotes.find(note => note.id == id)
+              return <NoteForm type="existing-note" noteId={id} {...currentNote}/>
+            }} />
+            <Route path="/new-note" render={ () => <NoteForm type="new-note"/> } />
+            <Route component={ErrorPage} />
+          </Switch>
         </main>
       </div>
     );

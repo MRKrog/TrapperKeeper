@@ -22,8 +22,6 @@ export class NoteForm extends Component {
             }],
       toHomePage: false,
       errorPage: false,
-      redirect: false,
-
     }
   }
   
@@ -55,7 +53,7 @@ export class NoteForm extends Component {
   }
 
   handleEscape = () => {
-    this.setState({redirect: true})
+    this.setState({toHomePage: true})
   }
 
   findNote = async (noteId) => {
@@ -190,7 +188,6 @@ export class NoteForm extends Component {
 
   render() {
     const { toHomePage, errorPage } = this.state
-    if (this.state.redirect) return <Redirect to='/' />;
     if(toHomePage === true){
       return <Redirect to='/' />
     } else if(errorPage === true) {

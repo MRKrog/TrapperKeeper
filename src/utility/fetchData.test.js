@@ -22,4 +22,21 @@ describe('fetchData', () => {
     await fetchData(url, mockBody)
     expect(fetch).toHaveBeenCalledWith(url, mockBody)
   })
+
+  it.skip('should return expected data', async () => {
+    const result = await fetchData(url, mockBody);
+    expect(result).toEqual(mockBody);
+  });
+
+  it.skip('should throw error if response is not ok', async () => {
+    fetch = jest.fn().mockImplementationOnce(() => Promise.resolve({
+      ok: false
+    }));
+    try {
+      await fetchData(url, mockBody);
+    } catch (error) {
+      expect(error.message).toBe('');
+    }
+  });
+
 })

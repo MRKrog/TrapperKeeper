@@ -13,14 +13,6 @@ exports[`NoteOptions should match the snapshot 1`] = `
       className="fas fa-save"
     />
   </button>
-  <button
-    className="Note-Delete"
-    onClick={[MockFunction]}
-  >
-    <i
-      className="fas fa-trash-alt"
-    />
-  </button>
   <NavLink
     className="Note-Close"
     onClick={[MockFunction]}

@@ -9,14 +9,15 @@ describe('NoteOptions', () => {
   const mockHandleType = jest.fn()
   const mockDeleteNote = jest.fn()
   const mockHandleClose = jest.fn()
-  const mockType = "existing-note";
+  const mockChangeColor = jest.fn()
 
   beforeEach(() => {
-    wrapper = shallow(
-      <NoteOptions  handleType={mockHandleType} 
-                    deleteNote={mockDeleteNote} 
-                    handleClose={mockHandleClose}
-                    type={mockType} />)
+    wrapper = shallow(<NoteOptions handleType={mockHandleType}
+                                   deleteNote={mockDeleteNote}
+                                   handleClose={mockHandleClose}
+                                   changeColor={mockChangeColor}
+                                   type='existing-note'
+                                  />)
   })
 
   it('should match the snapshot', () => {
@@ -36,5 +37,10 @@ describe('NoteOptions', () => {
   it('should call handleClose when the close note button is clicked', () => {
     wrapper.find('.Note-Close').simulate('click')
     expect(mockHandleClose).toHaveBeenCalled()
+  })
+
+  it('should call changeColor when the color button is clicked', () => {
+    wrapper.find('.Color.Yellow').simulate('click')
+    expect(mockChangeColor).toHaveBeenCalled()
   })
 })

@@ -8,7 +8,7 @@ export class NotesContainer extends Component {
 
   generateNotes = () => {
     return this.props.allNotes.map(note =>
-      <Link to={`/notes/${note.id}`} key={note.id} className='note-click'>
+      <Link to={`/notes/${note.id}`} key={note.id} className='note-click' style={{ backgroundColor: note.background }}>
         <NoteDisplay {...note} />
       </Link>
     )

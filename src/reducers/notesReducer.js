@@ -4,7 +4,8 @@ export const notesReducer = (state=[], action) => {
       return action.allNotes.map(note => ({
         id: note.id,
         title: note.title,
-        list: note.list
+        list: note.list,
+        background: note.background,
       }));
     default:
       return state;

@@ -9,9 +9,14 @@ describe('NoteOptions', () => {
   const mockHandleType = jest.fn()
   const mockDeleteNote = jest.fn()
   const mockHandleClose = jest.fn()
+  const mockType = "existing-note";
 
   beforeEach(() => {
-    wrapper = shallow(<NoteOptions handleType={mockHandleType} deleteNote={mockDeleteNote} handleClose={mockHandleClose} />)
+    wrapper = shallow(
+      <NoteOptions  handleType={mockHandleType} 
+                    deleteNote={mockDeleteNote} 
+                    handleClose={mockHandleClose}
+                    type={mockType} />)
   })
 
   it('should match the snapshot', () => {

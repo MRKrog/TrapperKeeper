@@ -58,22 +58,26 @@ describe('NotesContainer', () => {
             ]
           }
         ],
-        error: ""
+        error: "",
+        loading: false
       }
-      const expected = { allNotes: [
-        { id: "123ABA", 
-          title: 'Worf ToDo', 
-          list: [
-            { id: "123", text: 'Eat food', isComplete: false },
-          ]
-        },
-        { id: "987GDGFD",
-          title: 'Jake ToDo',
-          list: [
-            { id: "0098", text: 'Do styling', isComplete: false },
-          ]
-        }
-      ]}
+      const expected = {
+        allNotes: [
+          { id: "123ABA", 
+            title: 'Worf ToDo', 
+            list: [
+              { id: "123", text: 'Eat food', isComplete: false },
+            ]
+          },
+          { id: "987GDGFD",
+            title: 'Jake ToDo',
+            list: [
+              { id: "0098", text: 'Do styling', isComplete: false },
+            ]
+          }
+        ],
+        loading: false
+      }
 
       const mappedProps = mapStateToProps(mockState)
 

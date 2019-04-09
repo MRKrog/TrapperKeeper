@@ -23,4 +23,15 @@ describe('Actions', () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('should return a type of "IS_LOADING", with a boolean value', () => {
+    const value = false;
+    const expected = {
+      type: 'IS_LOADING',
+      value
+    };
+    const result = actions.isLoading(value);
+    
+    expect(result).toEqual(expected);
+  })
 });

@@ -1,71 +1,94 @@
 .Note-Options {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: .5em;
   margin-top: 1em;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  align-items: baseline;
+  align-items: flex-end;
 
-  button {
-    background: none;
-    outline: none;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    color: #6f6f6f;
-    opacity: 1;
-    transition: all .5 ease;
-    margin-right: .5em;
-
-    &:hover {
-      opacity: .6;
-    }
-  }
-
-  .Note-Save {
-    i {
-      position: relative;
-      bottom: -3px;
-    }
-  }
-
-  .Note-Delete {
-    i {
-      position: relative;
-      bottom: -2px;
-    }
-  }
-
-  .Note-Close {
-
+  .Color-Picker {
+    display: flex;
     button {
-      margin-right: 0;
-      font-family: $font-Roboto;
       outline: none;
+      background: #231f20;
+      display: block;
+      width: 20px;
+      border-radius: 20px;
+      height: 20px;
+      margin-right: 10px;
       cursor: pointer;
-      border: none;
-      height: 100%;
-      box-sizing: border-box;
-      color: rgba(0,0,0,0.95);
-      background-color: #cccccc;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      letter-spacing: .01785714em;
-      font-size: .75rem;
-      font-weight: 500;
-      line-height: .6;
-      height: 24px;
-      padding: 8px 15px;
-      border-radius: 4px;
-      transition: all .5s ease;
-      opacity: .5;
+      box-shadow: 0px 0px 5px #00000038;
 
-
-      &:hover {
-        opacity: .8;
-      }
+      &.Yellow {background: #FFE680}
+      &.Green {background: #D6FFB7}
+      &.Purple {background: #EEF5DB}
     }
+  }
+
+  .Note-SubOptions {
+
+      button {
+        background: none;
+        outline: none;
+        border: none;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #6f6f6f;
+        opacity: 1;
+        transition: all .5 ease;
+        margin-right: .5em;
+
+        &:hover {
+          opacity: .6;
+        }
+      }
+
+      .Note-Save {
+        i {
+          position: relative;
+          bottom: -3px;
+        }
+      }
+
+      .Note-Delete {
+        i {
+          position: relative;
+          bottom: -2px;
+        }
+      }
+
+      .Note-Close {
+
+        button {
+          margin-right: 0;
+          font-family: $font-Roboto;
+          outline: none;
+          cursor: pointer;
+          border: none;
+          height: 100%;
+          box-sizing: border-box;
+          color: rgba(0,0,0,0.95);
+          background-color: #cccccc;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          letter-spacing: .01785714em;
+          font-size: .75rem;
+          font-weight: 500;
+          line-height: .6;
+          height: 24px;
+          padding: 8px 15px;
+          border-radius: 4px;
+          transition: all .5s ease;
+          opacity: .5;
+
+
+          &:hover {
+            opacity: .8;
+          }
+        }
+      }
+
   }
 
 

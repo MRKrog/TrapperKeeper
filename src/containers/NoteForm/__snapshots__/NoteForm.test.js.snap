@@ -6,6 +6,11 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
 >
   <div
     className="note-content"
+    style={
+      Object {
+        "backgroundColor": "#FFE680",
+      }
+    }
   >
     <input
       autoComplete="off"
@@ -46,6 +51,7 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
       className="ListItems Completed"
     />
     <NoteOptions
+      changeColor={[Function]}
       deleteNote={[Function]}
       displayError={false}
       handleClose={[Function]}
@@ -62,6 +68,11 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
 >
   <div
     className="note-content"
+    style={
+      Object {
+        "backgroundColor": "#FFE680",
+      }
+    }
   >
     <input
       autoComplete="off"
@@ -128,6 +139,7 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
       />
     </ul>
     <NoteOptions
+      changeColor={[Function]}
       deleteNote={[Function]}
       displayError={false}
       handleClose={[Function]}

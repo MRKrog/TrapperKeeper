@@ -17,6 +17,7 @@ export class NoteForm extends Component {
       title: '',
       toHomePage: false,
       displayError: false,
+      background: '#FFE680',
       list: [
         {
           id: shortid.generate(),
@@ -52,9 +53,10 @@ export class NoteForm extends Component {
     const url = `http://localhost:3001/api/v1/notes/${noteId}`;
     try {
       const response = await fetchData(url);
-      const { id, title, list } = response;
+      const { id, title, list, background } = response;
       this.setState({
         id,
+        background,
         title,
         list: [...list]
       })
@@ -84,12 +86,12 @@ export class NoteForm extends Component {
   }
 
   handlePostandPut = async (type) => {
-    const { title, list } = this.state;
+    const { title, list, background } = this.state;
     let path = type === 'new-note' ? 'POST' : 'PUT';
     let urlEnd = type === 'new-note' ? 'notes' : `notes/${this.props.id}`;
     const url = `http://localhost:3001/api/v1/${urlEnd}`;
     try {
-      const options = await fetchOptionsCreator(path , { title, list });
+      const options = await fetchOptionsCreator(path , { title, list, background });
       await fetchData(url, options);
       this.props.fetchAllNotes('http://localhost:3001/api/v1/notes');
       this.setState({toHomePage: true});
@@ -170,6 +172,11 @@ export class NoteForm extends Component {
     this.setState({ list: updatedList });
   }
 
+  changeColor = (e) => {
+    const { name } = e.target;
+    this.setState({ background: name })
+  }
+
   handleClose = () => {
     this.props.hasError('');
   }
@@ -177,7 +184,7 @@ export class NoteForm extends Component {
   render() {
     const separatedList = this.handleSeparate();
     const { completedItems, incompletedItems } = separatedList;
-    const { toHomePage, displayError } = this.state;
+    const { toHomePage, displayError, background } = this.state;
     if (toHomePage) return <Redirect to='/' />;
     let completedMessage = completedItems.length ? `${completedItems.length} Completed Item(s)` : null;
     return (
@@ -185,7 +192,7 @@ export class NoteForm extends Component {
         {
           this.props.loading ?
             <div></div> :
-            <div className="note-content">
+            <div className="note-content" style={{backgroundColor: background}}>
               <input  type="text"
                 className="note-title"
                 placeholder="Enter A Title..."
@@ -224,7 +231,8 @@ export class NoteForm extends Component {
                             deleteNote={this.deleteNote}
                             handleClose={this.handleClose}
                             type={this.props.type}
-                            displayError={displayError}/>
+                            displayError={displayError}
+                            changeColor={this.changeColor}/>
             </div>
               }
       </div>

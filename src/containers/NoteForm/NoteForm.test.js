@@ -37,6 +37,7 @@ describe('NoteForm', () => {
       {
         id: "987GDGFD",
         title: 'Jake ToDo',
+        background: '#FFE680',
         list: [
         { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
       ]
@@ -46,6 +47,7 @@ describe('NoteForm', () => {
     let mockFetchedNote = {
       id: "987GDGFD",
       title: 'Jake ToDo',
+      background: '#FFE680',
       list: [
         { id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false },
       ]
@@ -72,6 +74,7 @@ describe('NoteForm', () => {
       wrapper = shallow(<NoteForm people={['name']}/>, { disableLifecycleMethods: true })
       expect(wrapper.state()).toEqual({
         title: '',
+        background: '#FFE680',
         list: [{
                 id: "12345789",
                 isComplete: false,
@@ -134,9 +137,10 @@ describe('NoteForm', () => {
     it('should call fetchOptionsCreator upon invoking handle post and return POST and title and list object', async () => {
       const title = 'Jake ToDo';
       const list = [{ id: "O6oYExG7Q", text: 'Do basic styling', isComplete: false }]
+      const background = '#FFE680';
 
       await wrapper.instance().handlePostandPut('new-note');
-      expect(fetchOptionsCreator).toHaveBeenCalledWith('POST', { title, list })
+      expect(fetchOptionsCreator).toHaveBeenCalledWith('POST', { title, list, background })
     })
 
     it('shoud call fetchData when handlePostandPut is invoked with existing-note with the correct url and options', async () => {
@@ -172,9 +176,10 @@ describe('NoteForm', () => {
     it('should call fetchOptionsCreator with the correct params when handlePostandPut is invoked', async () => {
       const title = 'Jake ToDo';
       const list = [{ id: 'O6oYExG7Q', text: 'Do basic styling', isComplete: false }];
+      const background = '#FFE680';
 
       await wrapper.instance().handlePostandPut()
-      expect(fetchOptionsCreator).toHaveBeenCalledWith('PUT', { title, list })
+      expect(fetchOptionsCreator).toHaveBeenCalledWith('PUT', { title, list, background })
     })
 
     it('should change state of title input when handleTitleChange is invoked', () => {
@@ -312,6 +317,12 @@ describe('NoteForm', () => {
         ]
       })
       expect(wrapper).toMatchSnapshot()
+    })
+
+    it('should update the background state with the name of the color', () => {
+      const mockEvent = { target: { name: '#agedr44' } }
+      wrapper.instance().changeColor(mockEvent)
+      expect(wrapper.state('background')).toEqual('#agedr44')
     })
 
   })

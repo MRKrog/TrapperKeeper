@@ -4,31 +4,52 @@ exports[`NoteOptions should match the snapshot 1`] = `
 <div
   className="Note-Options"
 >
-  <button
-    className="Note-Save"
-    onClick={[MockFunction]}
-    type="submit"
+  <div
+    className="Color-Picker"
   >
-    <i
-      className="fas fa-save"
+    <button
+      className="Color Yellow"
+      name="#FFE680"
+      onClick={[Function]}
     />
-  </button>
-  <button
-    className="Note-Delete"
-    onClick={[MockFunction]}
-  >
-    <i
-      className="fas fa-trash-alt"
+    <button
+      className="Color Green"
+      name="#D6FFB7"
+      onClick={[Function]}
     />
-  </button>
-  <NavLink
-    className="Note-Close"
-    onClick={[MockFunction]}
-    to="/"
-  >
-    <button>
-      Close
+    <button
+      className="Color Purple"
+      name="#EEF5DB"
+      onClick={[Function]}
+    />
+  </div>
+  <div className="Note-SubOptions">
+    <button
+      className="Note-Save"
+      onClick={[MockFunction]}
+      type="submit"
+    >
+      <i
+        className="fas fa-save"
+      />
     </button>
-  </NavLink>
+    <button
+      className="Note-Delete"
+      onClick={[MockFunction]}
+    >
+      <i
+        className="fas fa-trash-alt"
+      />
+    </button>
+    <NavLink
+      className="Note-Close"
+      onClick={[MockFunction]}
+      to="/"
+    >
+      <button>
+        Close
+      </button>
+    </NavLink>
+  </div>
 </div>
 `;

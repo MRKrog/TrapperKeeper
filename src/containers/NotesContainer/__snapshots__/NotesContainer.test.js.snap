@@ -7,6 +7,11 @@ exports[`NotesContainer NotesContainer should match the snapshot 1`] = `
   <Link
     className="note-click"
     key="123ABA"
+    style={
+      Object {
+        "backgroundColor": undefined,
+      }
+    }
     to="/notes/123ABA"
   >
     <NoteDisplay
@@ -26,6 +31,11 @@ exports[`NotesContainer NotesContainer should match the snapshot 1`] = `
   <Link
     className="note-click"
     key="987GDGFD"
+    style={
+      Object {
+        "backgroundColor": undefined,
+      }
+    }
     to="/notes/987GDGFD"
   >
     <NoteDisplay

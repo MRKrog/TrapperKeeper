@@ -2,19 +2,34 @@ import { fetchData } from './fetchData';
 
 describe('fetchData', () => {
   let mockBody
+  let mockNote
   let url
 
   beforeEach(() => {
-    url = "www.movies.com"
-    mockBody = [
-      { id: 1, title: "Archie's Playdate" },
-      { id: 1, title: "Shopping List" }
-    ]
+    url = "localhost:3001/api/v1/notes";
+    mockNote = { 
+      id: 1,
+      title: 'Team To-Do',
+      list: [
+        { id: 'a',
+          text: 'Show project at demo night',
+          isComplete: false
+        }
+      ]
+    };
+
+    mockBody = {
+      method: 'GET',
+      body: JSON.stringify(),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }
 
     fetch = jest.fn().mockImplementation(() => Promise.resolve({
       ok: true,
       status: 200,
-      json: () => Promise.resolve()
+      json: () => Promise.resolve(mockNote)
     }))
   })
 
@@ -23,20 +38,19 @@ describe('fetchData', () => {
     expect(fetch).toHaveBeenCalledWith(url, mockBody)
   })
 
-  it.skip('should return expected data', async () => {
+  it('should return expected data', async () => {
     const result = await fetchData(url, mockBody);
-    expect(result).toEqual(mockBody);
+    expect(result).toEqual(mockNote);
   });
 
-  it.skip('should throw error if response is not ok', async () => {
-    fetch = jest.fn().mockImplementationOnce(() => Promise.resolve({
-      ok: false
+  it('should throw an error if everything is not okay', async () => {
+    window.fetch = jest.fn(() => Promise.resolve({
+      status: 422,
+      ok: false,
+      json: jest.fn(() => Promise.resolve('Title is required'))
     }));
-    try {
-      await fetchData(url, mockBody);
-    } catch (error) {
-      expect(error.message).toBe('');
-    }
+    const expected = new Error('Title is required');
+    await expect(fetchData(url, mockBody)).rejects.toEqual(expected);
   });
 
 })

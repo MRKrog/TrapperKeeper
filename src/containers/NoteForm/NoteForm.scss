@@ -24,6 +24,27 @@
     background: inherit;
   }
 
+  .errorLabel {
+    display: none;
+    align-items: center;
+    padding: 0px 15px;
+    font-size: .8em;
+
+    &.Active {
+      display: flex;
+    }
+
+    i {
+      color: #DD1972;
+      margin-right: .5em;
+    }
+    p {
+      margin: 0;
+      // font-size: .8em;
+      color: #DD1972;
+    }
+  }
+
   .Completed-Message {
     min-height: 29px;
     padding: 5px 45px 5px 18px;

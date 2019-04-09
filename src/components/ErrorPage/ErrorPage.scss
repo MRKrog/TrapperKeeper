@@ -15,12 +15,12 @@
 
 .Error-Content {
   position:fixed;
-  background: #ffff;
+  background: #ffe680;
   width: 100%;
   max-width: 350px;
-  border-radius: 5px;
+  border-radius: 15px;
   height: auto;
-  padding: 5rem;
+  padding: 3rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -28,7 +28,7 @@
 
   h1 {
     margin: 0;
-    color: #757575;
+    color: $textColor;
     font-weight: 400;
     padding-bottom: 1em;
     font-size: 24px;

@@ -2,13 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-const NoteOptions = ({ handleType, deleteNote, handleClose, type }) => {
+const NoteOptions = ({ handleType, deleteNote, handleClose, type, displayError }) => {
 
   return (
     <div className="Note-Options">
-      <button className="Note-Save" onClick={handleType} type="submit">
-        <i className="fas fa-save"></i>
-      </button>
+      {
+        !displayError &&
+        <button className="Note-Save" onClick={handleType} type="submit">
+          <i className="fas fa-save"></i>
+        </button>
+      }
       {
         type === "existing-note" &&
           <button className="Note-Delete" onClick={deleteNote}>

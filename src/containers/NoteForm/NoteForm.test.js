@@ -17,6 +17,7 @@ jest.mock('../../thunks/fetchAllNotes');
 import shortid from 'shortid';
 jest.mock('shortid')
 shortid.mockReturnValue("12345789")
+window.alert = jest.fn()
 
 let mockId = "O6oYExG7Q";
 let noteId = "O6oYExG7Q";
@@ -161,10 +162,11 @@ describe('NoteForm', () => {
     })
 
     it('should call hasError when handlePostandPut is invoked with a bad request', async () => {
-      fetchData.mockImplementationOnce(() => Promise.reject(new Error('Bad Request Yo')))
-
+      fetchData.mockImplementationOnce(() => Promise.reject(new Error('Note Cannot Be Saved')))
+      const spy = spyOn(wrapper.instance(), 'displayWindowAlert')
       await wrapper.instance().handlePostandPut()
-      expect(mockHasError).toHaveBeenCalledWith('Bad Request Yo')
+      expect(mockHasError).toHaveBeenCalledWith('Note Cannot Be Saved')
+      expect(spy).toHaveBeenCalled()
     })
 
     it('should call fetchOptionsCreator with the correct params when handlePostandPut is invoked', async () => {
@@ -250,7 +252,7 @@ describe('NoteForm', () => {
       fetchData.mockImplementationOnce(() => Promise.reject(new Error('Note not found')))
       const mockEvent = { preventDefault: () => {} }
       await wrapper.instance().deleteNote(mockEvent)
-      expect(mockHasError).toHaveBeenCalledWith('note can not be deleted')
+      expect(mockHasError).toHaveBeenCalledWith('Note was not found')
     })
 
     it('should on handleItemDelete splice the specific object out of the list array and then set state with the new info', () => {

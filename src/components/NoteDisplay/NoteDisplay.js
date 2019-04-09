@@ -20,7 +20,6 @@ const NoteDisplay = (props) => {
       {
         props.list.map(item => (
           <li key={item.id} className={item.isComplete ? 'completed' : 'incompelete'}>
-            <div className="checkBox"><img src={item.isComplete ? checked : unchecked} alt="Check Box" /></div>
             {
               item.text.length > listMax ?
               item.text.substring(0, listMax) + '...' :

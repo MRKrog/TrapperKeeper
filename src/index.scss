@@ -13,7 +13,8 @@ $font-OpenSans: 'Open Sans', sans-serif;
 // COLORS
 $black: #231f20;
 $white: #231f20;
-
+$textColor: #403920;
+$baseYellow: #FFE680;
 
 
 @import './components/Header/Header';
@@ -36,6 +37,8 @@ body {
   font-family: $font-Lato;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./media/bg.jpg');
+  background-size: cover;
 }
 
 #__lpform_title, #__lpform_title_icon {

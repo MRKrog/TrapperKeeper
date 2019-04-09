@@ -35,7 +35,7 @@
         cursor: pointer;
         color: #6f6f6f;
         opacity: 1;
-        transition: all .5 ease;
+        transition: all .5s ease;
         margin-right: .5em;
 
         &:hover {
@@ -67,8 +67,8 @@
           border: none;
           height: 100%;
           box-sizing: border-box;
-          color: rgba(0,0,0,0.95);
-          background-color: #cccccc;
+          color: #fff;
+          background-color: #6f6f6f;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -79,13 +79,6 @@
           height: 24px;
           padding: 8px 15px;
           border-radius: 4px;
-          transition: all .5s ease;
-          opacity: .5;
-
-
-          &:hover {
-            opacity: .8;
-          }
         }
       }
 

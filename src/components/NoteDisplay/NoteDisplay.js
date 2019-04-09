@@ -1,8 +1,8 @@
 import React from 'react';
 
 const NoteDisplay = (props) => {
-  const titleMax = 13;
-  const listMax = 20;
+  const titleMax = 20;
+  const listMax = 30;
   return (
     <div className="NoteDisplay">
       <h3>

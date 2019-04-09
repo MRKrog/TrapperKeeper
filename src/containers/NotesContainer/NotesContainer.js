@@ -3,6 +3,7 @@ import NoteDisplay from '../../components/NoteDisplay/NoteDisplay';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import Masonry from 'react-masonry-css'
 
 export class NotesContainer extends Component {
 
@@ -19,11 +20,22 @@ export class NotesContainer extends Component {
     const loader = this.props.loading ? <div></div> : null
     let splashMessage = null;
     if (!loader && !allNotes.length) splashMessage = <h1 className="splash-message">Try Creating a New Note!</h1>;
+    const breakpointColumnsObj = {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1
+    };
     return (
       <div className="NotesContainer">
         { loader }
         { splashMessage }
-        { this.props.allNotes && this.generateNotes() }
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column">
+          { this.props.allNotes && this.generateNotes() }
+        </Masonry>
       </div>
     )
   }

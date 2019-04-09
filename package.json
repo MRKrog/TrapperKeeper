@@ -36,7 +36,8 @@
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
-    "enzyme-to-json": "^3.3.5"
+    "enzyme-to-json": "^3.3.5",
+    "react-masonry-css": "^1.0.12"
   },
   "jest": {
     "snapshotSerializers": [

@@ -35,7 +35,8 @@ export const mapStateToProps = (state) => ({
 })
 
 NotesContainer.propTypes = {
-  allNotes: PropTypes.array
+  allNotes: PropTypes.array,
+  loading: PropTypes.bool,
 }
 
 export default connect(mapStateToProps)(NotesContainer);

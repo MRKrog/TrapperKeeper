@@ -9,7 +9,7 @@ exports[`NoteDisplay should match the snapshot 1`] = `
   </h3>
   <ul>
     <li
-      className="incompelete"
+      className=""
       key="BqkLJDU45"
     >
       Item 2

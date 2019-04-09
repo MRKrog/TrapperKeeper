@@ -3,7 +3,6 @@
   justify-content: flex-end;
   padding: .5em;
   margin-top: 1em;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
   align-items: baseline;
 
   button {
@@ -14,7 +13,7 @@
     cursor: pointer;
     color: #6f6f6f;
     opacity: 1;
-    transition: all .5 ease;
+    transition: all .3s ease;
     margin-right: .5em;
 
     &:hover {
@@ -26,6 +25,7 @@
     i {
       position: relative;
       bottom: -3px;
+      color: #8a846d;
     }
   }
 
@@ -33,6 +33,7 @@
     i {
       position: relative;
       bottom: -2px;
+      color: #8a846d;
     }
   }
 
@@ -46,8 +47,8 @@
       border: none;
       height: 100%;
       box-sizing: border-box;
-      color: rgba(0,0,0,0.95);
-      background-color: #cccccc;
+      color: $baseYellow;
+      background-color: #8a846d;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -58,13 +59,6 @@
       height: 24px;
       padding: 8px 15px;
       border-radius: 4px;
-      transition: all .5s ease;
-      opacity: .5;
-
-
-      &:hover {
-        opacity: .8;
-      }
     }
   }
 

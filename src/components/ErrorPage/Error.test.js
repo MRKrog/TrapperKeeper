@@ -1,13 +1,12 @@
 import React from 'react';
+import { ErrorPage } from './ErrorPage';
 import { shallow } from 'enzyme';
-import Loader from './Loader';
 
-
-describe('Loader', () => {
+describe('Error', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<Loader />)
+    wrapper = shallow(<ErrorPage />)
   })
 
   it('should match the snapshot', () => {

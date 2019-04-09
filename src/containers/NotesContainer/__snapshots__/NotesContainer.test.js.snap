@@ -9,22 +9,38 @@ exports[`NotesContainer NotesContainer should match the snapshot 1`] = `
     key="123ABA"
     to="/notes/123ABA"
   >
-    <div>
-      <h3>
-        Worf ToDo
-      </h3>
-    </div>
+    <NoteDisplay
+      id="123ABA"
+      list={
+        Array [
+          Object {
+            "id": [MockFunction],
+            "isComplete": false,
+            "text": "Eat food",
+          },
+        ]
+      }
+      title="Worf ToDo"
+    />
   </Link>
   <Link
     className="note-click"
     key="987GDGFD"
     to="/notes/987GDGFD"
   >
-    <div>
-      <h3>
-        Jake ToDo
-      </h3>
-    </div>
+    <NoteDisplay
+      id="987GDGFD"
+      list={
+        Array [
+          Object {
+            "id": [MockFunction],
+            "isComplete": false,
+            "text": "Do basic styling",
+          },
+        ]
+      }
+      title="Jake ToDo"
+    />
   </Link>
 </div>
 `;

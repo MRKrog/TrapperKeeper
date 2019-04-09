@@ -4,8 +4,6 @@ import { NoteForm, mapStateToProps, mapDispatchToProps } from './NoteForm';
 import NoteOptions from '../../components/NoteOptions/NoteOptions';
 import { ListItem } from '../../components/ListItem/ListItem';
 import { hasError } from '../../actions';
-// import { render } from 'react-dom';
-// jest.mock('react-dom');
 
 import { fetchData } from '../../utility/fetchData';
 jest.mock('../../utility/fetchData')
@@ -32,6 +30,7 @@ describe('NoteForm', () => {
     let wrapper;
     let mockfetchAllNotes = jest.fn()
     let mockHasError = jest.fn()
+    let mockHasLoading = jest.fn()
 
     const mockNote = [
       {
@@ -60,6 +59,7 @@ describe('NoteForm', () => {
                                   title={mockTitle}
                                   fetchAllNotes={mockfetchAllNotes}
                                   hasError={mockHasError}
+                                  isLoading={mockHasLoading}
                         />)
     });
 

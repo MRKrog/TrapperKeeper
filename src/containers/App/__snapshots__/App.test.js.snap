@@ -8,22 +8,24 @@ exports[`App App Component should match the snapshot 1`] = `
   <main
     className="Content-Container"
   >
-    <Route
-      path="/"
-      render={[Function]}
-    />
-    <Route
-      path="/notes/:id"
-      render={[Function]}
-    />
-    <Route
-      path="/new-note"
-      render={[Function]}
-    />
-    <Route
-      path="/404"
-      render={[Function]}
-    />
+    <Switch>
+      <Route
+        exact={true}
+        path="/"
+        render={[Function]}
+      />
+      <Route
+        path="/notes/:id"
+        render={[Function]}
+      />
+      <Route
+        path="/new-note"
+        render={[Function]}
+      />
+      <Route
+        component={[Function]}
+      />
+    </Switch>
   </main>
 </div>
 `;

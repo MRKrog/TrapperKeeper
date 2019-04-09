@@ -4,36 +4,41 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
 <div
   className="Note"
 >
-  <input
-    className="note-title"
-    name="title"
-    onChange={[Function]}
-    placeholder="Enter A Title..."
-    type="text"
-    value="Jake ToDo"
-  />
-  <ul
-    className="ListItems"
+  <div
+    className="note-content"
   >
-    <ListItem
-      handleItemChange={[Function]}
-      handleItemDelete={[Function]}
-      id="O6oYExG7Q"
-      index={0}
-      isComplete={false}
-      key="O6oYExG7Q"
-      text="Do basic styling"
-      toggleComplete={[Function]}
+    <input
+      className="note-title"
+      name="title"
+      onChange={[Function]}
+      placeholder="Enter A Title..."
+      type="text"
+      value="Jake ToDo"
     />
-  </ul>
-  <ul
-    className="ListItems Completed"
-  />
-  <NoteOptions
-    deleteNote={[Function]}
-    handleClose={[Function]}
-    handleType={[Function]}
-  />
+    <ul
+      className="ListItems"
+    >
+      <ListItem
+        handleItemChange={[Function]}
+        handleItemDelete={[Function]}
+        id="O6oYExG7Q"
+        index={0}
+        isComplete={false}
+        key="O6oYExG7Q"
+        text="Do basic styling"
+        toggleComplete={[Function]}
+      />
+    </ul>
+    <ul
+      className="ListItems Completed"
+    />
+    <NoteOptions
+      deleteNote={[Function]}
+      handleClose={[Function]}
+      handleType={[Function]}
+      type="existing-note"
+    />
+  </div>
 </div>
 `;
 
@@ -41,61 +46,66 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
 <div
   className="Note"
 >
-  <input
-    className="note-title"
-    name="title"
-    onChange={[Function]}
-    placeholder="Enter A Title..."
-    type="text"
-    value="Jake ToDo"
-  />
-  <ul
-    className="ListItems"
+  <div
+    className="note-content"
   >
-    <ListItem
-      handleItemChange={[Function]}
-      handleItemDelete={[Function]}
-      id="O6oYExG7Q"
-      index={0}
-      isComplete={false}
-      key="O6oYExG7Q"
-      text="Do basic styling"
-      toggleComplete={[Function]}
+    <input
+      className="note-title"
+      name="title"
+      onChange={[Function]}
+      placeholder="Enter A Title..."
+      type="text"
+      value="Jake ToDo"
     />
-    <ListItem
-      handleItemChange={[Function]}
-      handleItemDelete={[Function]}
-      id="1234552f4"
-      index={1}
-      isComplete={false}
-      key="1234552f4"
-      text="Javascript is cool"
-      toggleComplete={[Function]}
+    <ul
+      className="ListItems"
+    >
+      <ListItem
+        handleItemChange={[Function]}
+        handleItemDelete={[Function]}
+        id="O6oYExG7Q"
+        index={0}
+        isComplete={false}
+        key="O6oYExG7Q"
+        text="Do basic styling"
+        toggleComplete={[Function]}
+      />
+      <ListItem
+        handleItemChange={[Function]}
+        handleItemDelete={[Function]}
+        id="1234552f4"
+        index={1}
+        isComplete={false}
+        key="1234552f4"
+        text="Javascript is cool"
+        toggleComplete={[Function]}
+      />
+    </ul>
+    <p
+      className="Completed-Message"
+    >
+      1 Completed Item(s)
+    </p>
+    <ul
+      className="ListItems Completed"
+    >
+      <ListItem
+        handleItemChange={[Function]}
+        handleItemDelete={[Function]}
+        id="55ogax554"
+        index={0}
+        isComplete={true}
+        key="55ogax554"
+        text="Do More CsS"
+        toggleComplete={[Function]}
+      />
+    </ul>
+    <NoteOptions
+      deleteNote={[Function]}
+      handleClose={[Function]}
+      handleType={[Function]}
+      type="existing-note"
     />
-  </ul>
-  <p
-    className="Completed-Message"
-  >
-    1 Completed Item(s)
-  </p>
-  <ul
-    className="ListItems Completed"
-  >
-    <ListItem
-      handleItemChange={[Function]}
-      handleItemDelete={[Function]}
-      id="55ogax554"
-      index={0}
-      isComplete={true}
-      key="55ogax554"
-      text="Do More CsS"
-      toggleComplete={[Function]}
-    />
-  </ul>
-  <NoteOptions
-    deleteNote={[Function]}
-    handleClose={[Function]}
-    handleType={[Function]}
-  />
+  </div>
 </div>
 `;

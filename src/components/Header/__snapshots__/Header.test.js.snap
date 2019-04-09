@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should match the snapshot 1`] = `
+<div
+  className="Header"
+>
+  <section
+    className="Header-Content"
+  >
+    <section
+      className="Logo"
+    >
+      <h1>
+        TrapperKeeper
+      </h1>
+    </section>
+    <Link
+      to="/new-note"
+    >
+      New Note
+    </Link>
+  </section>
+</div>
+`;

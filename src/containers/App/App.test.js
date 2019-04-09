@@ -41,7 +41,7 @@ describe('App', () => {
       expect(mockfetchAllNotes).toBeCalled()
     })
 
-    it("should call storeAllNotes with expected url", async () => {
+    it("should call fetchAllNotes with expected url", async () => {
       const mockUrl = 'http://localhost:3001/api/v1/notes';
       wrapper.instance().componentDidMount()
       expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
@@ -49,7 +49,7 @@ describe('App', () => {
   });
 
   describe('mapStateToProps', () => {
-    it('should return an object with a notes array', () => {
+    it('should return an object with a notes array and an error string', () => {
       const mockState = {
         allNotes: [
           { id: "123ABA", 
@@ -93,7 +93,7 @@ describe('App', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    it('should call dispatch when using showError function from mapDispatchToProps', () => {
+    it('should call dispatch when using showError function from MDTP', () => {
       const mockDispatch = jest.fn()
       const mockError = "Something went wrong"
       const actionToDispatch = hasError(mockError)

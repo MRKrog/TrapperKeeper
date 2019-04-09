@@ -40,7 +40,10 @@ ul.ListItems {
       }
 
       input.list-item-input {
-        &::placeholder {}
+        width: 90%;
+        &::placeholder {
+          color: $textColor;
+        }
       }
 
       .delete-button {
@@ -129,6 +132,7 @@ ul.ListItems {
       font-family: $font-Roboto;
       font-size: .9rem;
       font-weight: 400;
+      color: $textColor;
       line-height: 1.5rem;
     }
 
@@ -140,6 +144,7 @@ ul.ListItems {
       outline: none;
       border:none;
       width: 80%;
+      background: inherit;
     }
 
     button {
@@ -149,6 +154,8 @@ ul.ListItems {
       border: none;
       cursor: pointer;
       line-height: 1;
+      position: relative;
+      bottom: -2px;
     }
 
     img {

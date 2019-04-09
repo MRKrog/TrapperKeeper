@@ -2,18 +2,28 @@
   display: flex;
   flex-wrap: wrap;
 
-  a {
+  .note-click {
     width: 23%;
-    min-height: 100px;
     margin: 1%;
     border-radius: 15px;
-    border: solid hsl(0, 0%, 88%) 1px;
-    background: white;
+    background: #ffe680;
     text-decoration: none;
     padding: 1em;
     display: flex;
     font-family: $font-Abel;
-    box-shadow: 0 0 6px 3px #00000014;
+    box-shadow: 4px 6px 6px 3px #00000059;
+    position: relative;
+
+    &:before {
+      content:"";
+      background-image: url('./media/tack.png');
+      position: absolute;
+      width:100px;
+      height: 100px;
+      top: .2em;
+      right: 3.5em;
+      background-repeat: no-repeat;
+    }
   }
 
   .splash-message {

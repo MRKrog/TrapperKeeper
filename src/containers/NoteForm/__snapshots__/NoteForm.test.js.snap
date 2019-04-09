@@ -8,6 +8,7 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
     className="note-content"
   >
     <input
+      autoComplete="off"
       className="note-title"
       name="title"
       onChange={[Function]}
@@ -15,6 +16,18 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
       type="text"
       value="Jake ToDo"
     />
+    <div
+      className="errorLabel"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+      />
+      <p
+        className="name-error"
+      >
+        Please Enter A Title
+      </p>
+    </div>
     <ul
       className="ListItems"
     >
@@ -34,6 +47,7 @@ exports[`NoteForm NoteForm Component should match the snapshot 1`] = `
     />
     <NoteOptions
       deleteNote={[Function]}
+      displayError={false}
       handleClose={[Function]}
       handleType={[Function]}
       type="existing-note"
@@ -50,6 +64,7 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
     className="note-content"
   >
     <input
+      autoComplete="off"
       className="note-title"
       name="title"
       onChange={[Function]}
@@ -57,6 +72,18 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
       type="text"
       value="Jake ToDo"
     />
+    <div
+      className="errorLabel"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+      />
+      <p
+        className="name-error"
+      >
+        Please Enter A Title
+      </p>
+    </div>
     <ul
       className="ListItems"
     >
@@ -102,6 +129,7 @@ exports[`NoteForm NoteForm Component should update match the snapshot when there
     </ul>
     <NoteOptions
       deleteNote={[Function]}
+      displayError={false}
       handleClose={[Function]}
       handleType={[Function]}
       type="existing-note"

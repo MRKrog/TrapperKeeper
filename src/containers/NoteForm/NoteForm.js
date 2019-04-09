@@ -94,13 +94,20 @@ export class NoteForm extends Component {
       this.props.fetchAllNotes('http://localhost:3001/api/v1/notes');
       this.setState({toHomePage: true});
     } catch(error) {
-      this.props.hasError(error.message);
+      this.props.hasError('Note Cannot Be Saved');
+      this.displayWindowAlert()
     }
   }
 
   handleTitleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({[name]: value});
+    if(value.length < 1) {
+      this.setState({ displayError: true });
+      this.setState({[name]: value});
+    } else {
+      this.setState({ displayError: false });
+      this.setState({[name]: value});
+    }
   }
 
   handleItemChange = (e, id) => {
@@ -123,7 +130,7 @@ export class NoteForm extends Component {
     const { list } = this.state;
     const foundIndex = list.findIndex(item => item.id === id);
     list.splice(foundIndex, 1);
-    this.setState({list});
+    this.setState({ list });
   }
 
   addItem = () => {
@@ -144,9 +151,14 @@ export class NoteForm extends Component {
       this.props.fetchAllNotes(url);
       this.setState({ toHomePage: true });
     } catch (error) {
-      this.props.hasError(error.message);
-      if(error.message === 'Note not found') {this.props.hasError('note can not be deleted')};
+      this.props.hasError('Note Can Not Be Deleted');
+      this.displayWindowAlert()
     }
+  }
+
+  displayWindowAlert = () => {
+    window.alert(this.props.error + '\nInternal Server Error')
+    this.setState({ toHomePage: true });
   }
 
   toggleComplete = (id) => {
@@ -155,7 +167,7 @@ export class NoteForm extends Component {
       if (id === item.id) item.isComplete = !item.isComplete;
       return item;
     });
-    this.setState({list: updatedList});
+    this.setState({ list: updatedList });
   }
 
   handleClose = () => {
@@ -165,14 +177,13 @@ export class NoteForm extends Component {
   render() {
     const separatedList = this.handleSeparate();
     const { completedItems, incompletedItems } = separatedList;
-    const { toHomePage, errorPage } = this.state;
+    const { toHomePage, displayError } = this.state;
     if (toHomePage) return <Redirect to='/' />;
-    if (errorPage) return <Redirect to='/404' />;
     let completedMessage = completedItems.length ? `${completedItems.length} Completed Item(s)` : null;
     return (
       <div className="Note">
         {
-          this.props.loading ? 
+          this.props.loading ?
             <div></div> :
             <div className="note-content">
               <input  type="text"
@@ -180,23 +191,16 @@ export class NoteForm extends Component {
                 placeholder="Enter A Title..."
                 value={this.state.title}
                 name="title"
+                autoComplete="off"
                 onChange={this.handleTitleChange} />
+                <div className={displayError ? 'errorLabel Active' : 'errorLabel'}>
+                  <i className="fas fa-exclamation-triangle"></i>
+                  <p className="name-error">Please Enter A Title</p>
+                </div>
               <ul className="ListItems">
                 {
-                  incompletedItems.map((item, index) => 
-                    <ListItem key={item.id} 
-                              index={index} 
-                              toggleComplete={this.toggleComplete} 
-                              handleItemChange={this.handleItemChange} 
-                              handleItemDelete={this.handleItemDelete} 
-                              {...item} /> )
-                }
-              </ul>
-              { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
-              <ul className="ListItems Completed">
-                {
-                  completedItems.map((item, index) => 
-                    <ListItem key={item.id} 
+                  incompletedItems.map((item, index) =>
+                    <ListItem key={item.id}
                               index={index}
                               toggleComplete={this.toggleComplete}
                               handleItemChange={this.handleItemChange}
@@ -204,11 +208,23 @@ export class NoteForm extends Component {
                               {...item} /> )
                 }
               </ul>
-              <NoteOptions  handleType={this.handleType} 
-                            deleteNote={this.deleteNote} 
+              { completedMessage && <p className="Completed-Message">{completedMessage}</p> }
+              <ul className="ListItems Completed">
+                {
+                  completedItems.map((item, index) =>
+                    <ListItem key={item.id}
+                              index={index}
+                              toggleComplete={this.toggleComplete}
+                              handleItemChange={this.handleItemChange}
+                              handleItemDelete={this.handleItemDelete}
+                              {...item} /> )
+                }
+              </ul>
+              <NoteOptions  handleType={this.handleType}
+                            deleteNote={this.deleteNote}
                             handleClose={this.handleClose}
-                            type={this.props.type} />
-              { this.props.error && <h2>{this.props.error}</h2> }
+                            type={this.props.type}
+                            displayError={displayError}/>
             </div>
               }
       </div>

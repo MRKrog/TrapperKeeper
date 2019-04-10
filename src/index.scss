@@ -39,7 +39,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url('./media/bg.jpg');
   background-size: cover;
+
+  @media screen and (max-width: 500px) {
+    background-size: contain;
+    overflow: overlay;
+  }
+
 }
+
 
 #__lpform_title, #__lpform_title_icon {
   display: none;

@@ -27,7 +27,7 @@ export class App extends Component {
             }} />
             <Route path="/notes/:id" render={({match}) => {
               const { id } = match.params;
-              const currentNote = this.props.allNotes.find(note => note.id == id);
+              const currentNote = this.props.allNotes.find(note => note.id === id);
               if(currentNote === undefined) return <ErrorPage />
               return <NoteForm type="existing-note" noteId={id} {...currentNote}/>
             }} />

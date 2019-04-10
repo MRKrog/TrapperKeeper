@@ -1,16 +1,19 @@
 .NotesContainer {
 
   .note-click {
-    width: 90%;
     border-radius: 15px;
     background: #ffe680;
-    margin: 0 auto 20px;
     text-decoration: none;
+    margin: 1em;
     padding: 1em;
     display: flex;
     font-family: $font-Abel;
     box-shadow: 4px 6px 6px 3px #00000059;
     position: relative;
+
+    @media screen and (max-width: 787px) {
+      margin: .5em;
+    }
 
     &:before {
       content:"";

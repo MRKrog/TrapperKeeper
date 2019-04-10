@@ -2,7 +2,7 @@
 
 ## Overview:
 
-TrapperKeeper is a group project based on the user functionality of Google Keep. You can add and save notes. Notes can also be edited, list items marked as completeted, and the background color of the note can be changed. 
+TrapperKeeper is a group project based on the user functionality of Google Keep. You can add and save notes. Notes can also be edited, list items marked as completed, and the background color of the note can be changed. 
 
 [More information about original assignment can be found here](http://frontend.turing.io/projects/trapper-keeper.html)
 

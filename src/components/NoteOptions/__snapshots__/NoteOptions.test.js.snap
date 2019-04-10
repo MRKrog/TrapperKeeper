@@ -23,7 +23,9 @@ exports[`NoteOptions should match the snapshot 1`] = `
       onClick={[Function]}
     />
   </div>
-  <div className="Note-SubOptions">
+  <div
+    className="Note-SubOptions"
+  >
     <button
       className="Note-Save"
       onClick={[MockFunction]}

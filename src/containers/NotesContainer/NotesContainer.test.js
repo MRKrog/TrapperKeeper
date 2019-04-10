@@ -2,12 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { NotesContainer, mapStateToProps } from './NotesContainer';
 
+const mockLoading = false;
+
 describe('NotesContainer', () => {
   describe('NotesContainer', () => {
     let wrapper;
-    
-    const mockShortid = jest.fn().mockReturnValue('12345789'); 
-    
+
+    const mockShortid = jest.fn().mockReturnValue('12345789');
+
     const mockAllNotes = [
         { id: "123ABA",
         title: 'Worf ToDo',
@@ -29,7 +31,7 @@ describe('NotesContainer', () => {
     }];
 
   beforeEach(() => {
-    wrapper = shallow(<NotesContainer allNotes={mockAllNotes}/>)
+    wrapper = shallow(<NotesContainer allNotes={mockAllNotes} loading={mockLoading}/>)
   })
 
   it('should match the snapshot', () => {
@@ -39,14 +41,21 @@ describe('NotesContainer', () => {
   it('should return JSX when generateNotes is called', () => {
     expect(wrapper.generateNotes).toMatchSnapshot();
   })
+
+  it('should match the snapshot when loading is true', () => {
+    wrapper = shallow(<NotesContainer allNotes={[]} loading={false}/>)
+    expect(wrapper).toMatchSnapshot();
+  })
+
+
 });
 
   describe('mapStateToProps', () => {
     it('should return an object with a notes array', () => {
       const mockState = {
         allNotes: [
-          { id: "123ABA", 
-            title: 'Worf ToDo', 
+          { id: "123ABA",
+            title: 'Worf ToDo',
             list: [
               { id: "123", text: 'Eat food', isComplete: false },
             ]
@@ -63,8 +72,8 @@ describe('NotesContainer', () => {
       }
       const expected = {
         allNotes: [
-          { id: "123ABA", 
-            title: 'Worf ToDo', 
+          { id: "123ABA",
+            title: 'Worf ToDo',
             list: [
               { id: "123", text: 'Eat food', isComplete: false },
             ]

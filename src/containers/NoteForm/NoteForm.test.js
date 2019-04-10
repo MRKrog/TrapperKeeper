@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NoteForm, mapStateToProps, mapDispatchToProps } from './NoteForm';
-import NoteOptions from '../../components/NoteOptions/NoteOptions';
-import { ListItem } from '../../components/ListItem/ListItem';
 import { hasError } from '../../actions';
 
 import { fetchData } from '../../utility/fetchData';

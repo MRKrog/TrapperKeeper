@@ -37,8 +37,8 @@ launch in your browser: ``` $ npm start ```
 
 ## Future Development and Extensions Notes:
 
--Add drag and drop functionality for notes
--Add ability to search notes
+-Add drag and drop functionality for notes \
+-Add ability to search notes \
 -Add ability to upload files or pictures to notes
 
 

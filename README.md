@@ -37,6 +37,7 @@ launch in your browser: ``` $ npm start ```
 
 ## Future Development and Extensions Notes:
 
+-Easier keyboard only flow on note (ie. ability to press Enter to get to next line) \
 -Add drag and drop functionality for notes \
 -Add ability to search notes \
 -Add ability to upload files or pictures to notes

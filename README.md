@@ -4,6 +4,8 @@
 
 TrapperKeeper is a group project based on the user functionality of Google Keep. You can add and save notes. Notes can also be edited, list items marked as completeted, and the background color of the note can be changed. 
 
+[More information about original assignment can be found here](http://frontend.turing.io/projects/trapper-keeper.html)
+
 ## Preview:
 
 <img src="src/media/TrapperKeeper.png" alt="TrapperKeeper screenshot">
@@ -32,17 +34,12 @@ cd into directory and run npm install: ``` $ npm install ```
 
 launch in your browser: ``` $ npm start ```
 
-
 ## Future Development and Extensions Notes:
 
 - Fully keyboard navigation on note (ie. ability to press `Enter` to get to next line) \
 - Add drag and drop functionality for notes \
 - Add ability to search notes \
 - Add ability to upload files or pictures to notes
-
-
-## Original Assignment
-[TrapperKeeper, Mod 3 at Turing School of Software and Design](http://frontend.turing.io/projects/trapper-keeper.html)
 
 ### Technologies Used
 TrapperKeeper was built using: 
@@ -68,3 +65,6 @@ Credit for this project goes to:
 This project was assigned by David Whitaker and Christie Lynam 
 
 *@ Turing School of Software and Design, Denver, CO.*
+
+---
+**[Back to top](https://github.com/MRKrog/TrapperKeeper/blob/master/README.md#trapperkeeper)**

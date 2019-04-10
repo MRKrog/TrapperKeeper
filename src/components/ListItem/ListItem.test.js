@@ -51,4 +51,9 @@ describe('ListItem', () => {
     button.simulate('click')
     expect(mockHandleItemDelete).toHaveBeenCalled()
   })
+
+  it('should match the snapshot when an item isCompleted', () => {
+    wrapper = shallow(<ListItem isComplete={true} />)
+    expect(wrapper).toMatchSnapshot()
+  })
 })

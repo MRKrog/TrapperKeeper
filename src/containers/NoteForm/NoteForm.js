@@ -232,7 +232,8 @@ export class NoteForm extends Component {
                             handleClose={this.handleClose}
                             type={this.props.type}
                             displayError={displayError}
-                            changeColor={this.changeColor}/>
+                            changeColor={this.changeColor}
+                            title={this.state.title}/>
             </div>
               }
       </div>

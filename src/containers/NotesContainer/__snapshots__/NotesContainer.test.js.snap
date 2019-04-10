@@ -4,54 +4,91 @@ exports[`NotesContainer NotesContainer should match the snapshot 1`] = `
 <div
   className="NotesContainer"
 >
-  <Link
-    className="note-click"
-    key="123ABA"
-    style={
+  <Masonry
+    breakpointCols={
       Object {
-        "backgroundColor": undefined,
+        "1100": 3,
+        "500": 1,
+        "700": 2,
+        "default": 4,
       }
     }
-    to="/notes/123ABA"
+    className="my-masonry-grid"
+    columnClassName="my-masonry-grid_column"
   >
-    <NoteDisplay
-      id="123ABA"
-      list={
-        Array [
-          Object {
-            "id": [MockFunction],
-            "isComplete": false,
-            "text": "Eat food",
-          },
-        ]
+    <Link
+      className="note-click"
+      key="123ABA"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
       }
-      title="Worf ToDo"
-    />
-  </Link>
-  <Link
-    className="note-click"
-    key="987GDGFD"
-    style={
+      to="/notes/123ABA"
+    >
+      <NoteDisplay
+        id="123ABA"
+        list={
+          Array [
+            Object {
+              "id": [MockFunction],
+              "isComplete": false,
+              "text": "Eat food",
+            },
+          ]
+        }
+        title="Worf ToDo"
+      />
+    </Link>
+    <Link
+      className="note-click"
+      key="987GDGFD"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
+      to="/notes/987GDGFD"
+    >
+      <NoteDisplay
+        id="987GDGFD"
+        list={
+          Array [
+            Object {
+              "id": [MockFunction],
+              "isComplete": false,
+              "text": "Do basic styling",
+            },
+          ]
+        }
+        title="Jake ToDo"
+      />
+    </Link>
+  </Masonry>
+</div>
+`;
+
+exports[`NotesContainer NotesContainer should match the snapshot when loading is true 1`] = `
+<div
+  className="NotesContainer"
+>
+  <h1
+    className="splash-message"
+  >
+    Try Creating a New Note!
+  </h1>
+  <Masonry
+    breakpointCols={
       Object {
-        "backgroundColor": undefined,
+        "1100": 3,
+        "500": 1,
+        "700": 2,
+        "default": 4,
       }
     }
-    to="/notes/987GDGFD"
-  >
-    <NoteDisplay
-      id="987GDGFD"
-      list={
-        Array [
-          Object {
-            "id": [MockFunction],
-            "isComplete": false,
-            "text": "Do basic styling",
-          },
-        ]
-      }
-      title="Jake ToDo"
-    />
-  </Link>
+    className="my-masonry-grid"
+    columnClassName="my-masonry-grid_column"
+  />
 </div>
 `;
 

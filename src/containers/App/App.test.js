@@ -1,8 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme'
 import { App, mapStateToProps, mapDispatchToProps } from './App';
+
 import { hasError } from '../../actions'
 import { fetchAllNotes } from '../../thunks/fetchAllNotes'
+
 
 jest.mock('../../thunks/fetchAllNotes');
 
@@ -46,14 +48,18 @@ describe('App', () => {
       wrapper.instance().componentDidMount()
       expect(mockfetchAllNotes).toHaveBeenCalledWith(mockUrl)
     })
+
+
+
+
   });
 
   describe('mapStateToProps', () => {
     it('should return an object with a notes array and an error string', () => {
       const mockState = {
         allNotes: [
-          { id: "123ABA", 
-            title: 'Worf ToDo', 
+          { id: "123ABA",
+            title: 'Worf ToDo',
             list: [
               { id: "123", text: 'Eat food', isComplete: false },
             ]
@@ -70,8 +76,8 @@ describe('App', () => {
       }
       const expected = {
         allNotes: [
-          { id: "123ABA", 
-            title: 'Worf ToDo', 
+          { id: "123ABA",
+            title: 'Worf ToDo',
             list: [
               { id: "123", text: 'Eat food', isComplete: false },
             ]

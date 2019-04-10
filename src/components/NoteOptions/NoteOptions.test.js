@@ -16,7 +16,8 @@ describe('NoteOptions', () => {
                                    deleteNote={mockDeleteNote}
                                    handleClose={mockHandleClose}
                                    changeColor={mockChangeColor}
-                                   type='existing-note'
+                                   type="existing-note"
+                                   title="A Title"
                                   />)
   })
 
@@ -39,8 +40,24 @@ describe('NoteOptions', () => {
     expect(mockHandleClose).toHaveBeenCalled()
   })
 
-  it('should call changeColor when the color button is clicked', () => {
+  it('should call changeColor when the yellow color button is clicked', () => {
     wrapper.find('.Color.Yellow').simulate('click')
     expect(mockChangeColor).toHaveBeenCalled()
   })
+
+  it('should call changeColor when the yellow color button is clicked', () => {
+    wrapper.find('.Color.Yellow').simulate('click')
+    expect(mockChangeColor).toHaveBeenCalled()
+  })
+
+  it('should call changeColor when the green color button is clicked', () => {
+    wrapper.find('.Color.Green').simulate('click')
+    expect(mockChangeColor).toHaveBeenCalled()
+  })
+
+  it('should call changeColor when the purple color button is clicked', () => {
+    wrapper.find('.Color.Purple').simulate('click')
+    expect(mockChangeColor).toHaveBeenCalled()
+  })
+
 })

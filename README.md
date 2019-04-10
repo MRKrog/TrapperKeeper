@@ -2,7 +2,7 @@
 
 ## Descriptions:
 
-TrapperKeeper is a group project based on the user functionality of Google Keep. You can add and save notes. Notes can also be edited, list items marked as completeted, and the background color of the note can be changed. 
+TrapperKeeper is a group project based on the user functionality of Google Keep. You can add and save notes. Notes can also be edited, list items marked as completed, and the background color of the note can be changed. 
 
 TrapperKeeper was built using: HTML, JavaScript, SCSS, React, React-Router, Redux, Node.js, and Express.
 

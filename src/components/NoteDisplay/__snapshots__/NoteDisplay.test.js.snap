@@ -14,6 +14,12 @@ exports[`NoteDisplay should match the snapshot 1`] = `
     >
       Item 2
     </li>
+    <li
+      className="completed"
+      key="Not Complets"
+    >
+      Item 3
+    </li>
   </ul>
 </div>
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-const NoteOptions = ({ handleType, deleteNote, handleClose, type, displayError, changeColor }) => {
+const NoteOptions = ({ handleType, deleteNote, handleClose, type, displayError, changeColor, title }) => {
 
   return (
     <div className="Note-Options">
@@ -13,7 +13,7 @@ const NoteOptions = ({ handleType, deleteNote, handleClose, type, displayError, 
       </div>
       <div className="Note-SubOptions">
       {
-        !displayError &&
+        title.length < 1 || !displayError &&
         <button className="Note-Save" onClick={handleType} type="submit">
           <i className="fas fa-save"></i>
         </button>

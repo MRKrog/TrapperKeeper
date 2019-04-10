@@ -58,3 +58,13 @@
     &:active { opacity: 0.5; }
   }
 }
+
+@media screen and (max-width: 500px) {
+  .Header-Content {
+    flex-direction: column;
+  }
+  a {
+    width: 90%;
+    margin-top: 10px;
+  }
+}

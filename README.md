@@ -7,10 +7,12 @@ TrapperKeeper is a group project based on the user functionality of Google Keep.
 ## Preview:
 
 <img src="src/media/TrapperKeeper.png" alt="TrapperKeeper screenshot">
-<img src="src/media/createNote.gif" alt="creating new note">
-<img src="src/media/deleteList.gif" alt="deleting a note">
-<img src="src/media/toggleComplete.gif" alt="marking list item as completed">
-<img src="src/media/toggleColor.gif" alt="changing color of note">
+
+Creating a new note             |  Deleting a note
+:-------------------------:|:-------------------------:
+<img src="src/media/createNote.gif" alt="creating new note">  |  <img src="src/media/deleteList.gif" alt="deleting a note">
+**Toggling list item completion**             |  **Changing note color**
+<img src="src/media/toggleComplete.gif" alt="marking list item as completed">  |  <img src="src/media/toggleColor.gif" alt="changing color of note">
 
 ## Getting Started:
 

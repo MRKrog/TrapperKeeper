@@ -7,6 +7,10 @@
   display: flex;
   flex-direction: column;
 
+  @media screen and (max-width: 500px) {
+    width: 80%;
+  }
+
   .note-title {
     font-family: $font-OpenSans;
     color: $textColor;
